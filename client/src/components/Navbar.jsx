@@ -1,21 +1,28 @@
 // Enhanced Navbar.jsx
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-
-// Usage:
-// import logo from "/assets/logo.png";
-// <Navbar logoSrc={logo} logoAlt="Your Brand" />
 
 const navItems = [
   { to: "/", label: "Home" },
   { to: "/about", label: "About" },
-  { to: "/services", label: "Services" },
-  { to: "/reviews", label: "Reviews" },
+  { to: "/services", label: "Services", dropdown: true },
+  { to: "/testimonials", label: "Testimonials" },
   { to: "/contact", label: "Contact" },
+];
+
+const serviceItems = [
+  { to: "/services/super-visa", label: "Super Visa" },
+  { to: "/services/study-visa", label: "Study Visa" },
+  { to: "/services/visa-counselling", label: "Visa Counselling" },
+  { to: "/services/tourist-visa", label: "Tourist Visa" },
+  { to: "/services/ielts-pte", label: "IELTS/PTE" },
+  { to: "/services/interview-prep", label: "Interview Preparation" },
 ];
 
 const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const linkBase =
     "px-3 py-2 rounded-lg transition-all duration-200 hover:text-[#F68625] hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-[#F68625] focus:ring-offset-1";
@@ -24,10 +31,21 @@ const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
 
   const closeMenu = () => setOpen(false);
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
     <header className="w-full bg-white/80 backdrop-blur-md shadow-sm border-b border-gray-100 sticky top-0 z-50">
       <nav className="max-w-7xl mx-auto px-6 md:px-8 py-3 flex items-center justify-between">
-        {/* Left - Logo Image */}
+        {/* Left - Logo */}
         <div className="shrink-0">
           <Link
             to="/"
@@ -46,18 +64,45 @@ const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
 
         {/* Center - Links (Desktop) */}
         <div className="hidden md:flex items-center gap-2">
-          {navItems.map(({ to, label }) => (
-            <NavLink
-              key={to}
-              to={to}
-              className={({ isActive }) =>
-                `${linkBase} ${isActive ? linkActive : linkInactive}`
-              }
-              onClick={closeMenu}
-            >
-              {label}
-            </NavLink>
-          ))}
+          {navItems.map(({ to, label, dropdown }) =>
+            dropdown ? (
+              <div key={to} className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen((prev) => !prev)}
+                  className={`${linkBase} ${dropdownOpen ? linkActive : linkInactive
+                    }`}
+                >
+                  {label}
+                </button>
+
+                {dropdownOpen && (
+                  <div className="absolute top-full left-0 mt-2 w-56 bg-white shadow-lg rounded-lg border border-gray-100 py-2 z-50">
+                    {serviceItems.map(({ to, label }) => (
+                      <NavLink
+                        key={to}
+                        to={to}
+                        className="block px-4 py-2 text-gray-700 hover:bg-orange-50 hover:text-[#F68625]"
+                        onClick={() => setDropdownOpen(false)}
+                      >
+                        {label}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink
+                key={to}
+                to={to}
+                className={({ isActive }) =>
+                  `${linkBase} ${isActive ? linkActive : linkInactive}`
+                }
+                onClick={closeMenu}
+              >
+                {label}
+              </NavLink>
+            )
+          )}
         </div>
 
         {/* Right - Buttons (Desktop) */}
@@ -84,9 +129,8 @@ const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
           onClick={() => setOpen((v) => !v)}
         >
           <svg
-            className={`w-6 h-6 transition-transform duration-200 ${
-              open ? "rotate-180 opacity-0" : "rotate-0 opacity-100"
-            }`}
+            className={`w-6 h-6 transition-transform duration-200 ${open ? "rotate-180 opacity-0" : "rotate-0 opacity-100"
+              }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -99,9 +143,8 @@ const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
             />
           </svg>
           <svg
-            className={`w-6 h-6 absolute transition-transform duration-200 ${
-              open ? "rotate-0 opacity-100" : "rotate-180 opacity-0"
-            }`}
+            className={`w-6 h-6 absolute transition-transform duration-200 ${open ? "rotate-0 opacity-100" : "rotate-180 opacity-0"
+              }`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -115,58 +158,6 @@ const Navbar = ({ logoSrc, logoAlt = "Brand" }) => {
           </svg>
         </button>
       </nav>
-
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 ease-in-out overflow-hidden ${
-          open
-            ? "max-h-[500px] opacity-100 border-t border-gray-100"
-            : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="px-6 pb-6 pt-4 space-y-3 bg-white/95 backdrop-blur-sm">
-          {/* Links */}
-          <div className="flex flex-col space-y-1">
-            {navItems.map(({ to, label }, index) => (
-              <NavLink
-                key={to}
-                to={to}
-                onClick={closeMenu}
-                className={({ isActive }) =>
-                  `py-3 px-3 rounded-lg transition-all duration-200 ${
-                    isActive
-                      ? "text-[#F68625] font-semibold bg-orange-50 border-l-4 border-[#F68625]"
-                      : "text-gray-700 hover:text-[#F68625] hover:bg-gray-50 hover:pl-4"
-                  }`
-                }
-                style={{
-                  animationDelay: open ? `${index * 50}ms` : "0ms",
-                }}
-              >
-                {label}
-              </NavLink>
-            ))}
-          </div>
-
-          {/* Buttons */}
-          <div className="pt-4 space-y-3">
-            <Link
-              to="/appointment"
-              onClick={closeMenu}
-              className="w-full text-center bg-[#F68625] text-white px-5 py-3 rounded-lg hover:bg-[#e5761f] hover:shadow-lg transform hover:scale-105 transition-all duration-200 font-medium block"
-            >
-              Get an Appointment
-            </Link>
-            <Link
-              to="/login"
-              onClick={closeMenu}
-              className="w-full text-center border-2 border-[#F68625] text-[#F68625] px-5 py-3 rounded-lg hover:bg-[#F68625] hover:text-white hover:shadow-md transform hover:scale-105 transition-all duration-200 font-medium block"
-            >
-              Login
-            </Link>
-          </div>
-        </div>
-      </div>
     </header>
   );
 };
