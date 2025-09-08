@@ -1,7 +1,56 @@
 import React, { useState, useEffect } from "react";
-import { ShieldCheck, Clock, Globe2, FileText, Briefcase, Scale, Users, Award, CheckCircle, Star } from "lucide-react";
-import WhyChooseUs1 from "../components/WhyChooseUs";
+import { ShieldCheck, Clock, Globe2, FileText, Briefcase, Scale, Users, Award, Star, Mail, Phone, MapPin, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
+// Define variants once at the top
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 20 }
+  }
+};
+
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.3, delayChildren: 0.2 }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100, damping: 20 }
+  }
+};
+
+const imageVariants = {
+  hidden: { opacity: 0, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.8, ease: "easeOut" }
+  },
+  hover: {
+    scale: 1.05,
+    boxShadow: "0 15px 30px rgba(0,0,0,0.2)",
+    transition: { duration: 0.3 }
+  }
+};
 
 const WhyChooseUs = () => {
   const features = [
@@ -43,32 +92,9 @@ const WhyChooseUs = () => {
     }
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }
-    }
-  };
-
   return (
     <motion.div
-      className="bg-gradient-to-br from-gray-50 to-white py-20 px-4 sm:px-6"
+      className="bg-gradient-to-br from-gray-50 to-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
@@ -76,28 +102,37 @@ const WhyChooseUs = () => {
     >
       <div className="max-w-7xl mx-auto">
         <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
+          className="text-center mb-10 sm:mb-12 md:mb-16"
+          variants={containerVariants}
         >
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <motion.h2
+            className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
             Why Choose <span className="bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">Settle Nation?</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+          </motion.h2>
+          <motion.p
+            className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
             We combine expertise, technology, and personalized service to deliver exceptional immigration solutions that exceed expectations.
-          </p>
+          </motion.p>
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
           variants={containerVariants}
         >
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="group relative bg-white rounded-2xl p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
+              className="group relative bg-white rounded-2xl p-6 sm:p-8 shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden"
               variants={cardVariants}
               whileHover={{ scale: 1.05, boxShadow: "0 20px 30px rgba(0,0,0,0.1)" }}
             >
@@ -107,23 +142,38 @@ const WhyChooseUs = () => {
                 whileHover={{ y: -5 }}
                 transition={{ type: "spring", stiffness: 200 }}
               >
-                <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center justify-between mb-4 sm:mb-6">
                   <motion.div
-                    className="p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl group-hover:from-orange-200 group-hover:to-orange-100 transition-colors duration-300"
+                    className="p-2 sm:p-3 bg-gradient-to-br from-orange-100 to-orange-50 rounded-xl group-hover:from-orange-200 group-hover:to-orange-100 transition-colors duration-300"
                     whileHover={{ scale: 1.1 }}
                   >
-                    <feature.icon className="w-8 h-8 text-orange-600" />
+                    <feature.icon className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
                   </motion.div>
-                  <span className="text-sm font-bold text-orange-600 bg-orange-50 px-3 py-1 rounded-full">
+                  <motion.span
+                    className="text-xs sm:text-sm font-bold text-orange-600 bg-orange-50 px-2 sm:px-3 py-1 rounded-full"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
                     {feature.stats}
-                  </span>
+                  </motion.span>
                 </div>
-                <h3 className="font-bold text-xl text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+                <motion.h3
+                  className="font-bold text-lg sm:text-xl text-gray-900 mb-3 sm:mb-4 group-hover:text-orange-600 transition-colors duration-300"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.1 }}
+                >
                   {feature.title}
-                </h3>
-                <p className="text-gray-600 leading-relaxed">
+                </motion.h3>
+                <motion.p
+                  className="text-gray-600 text-sm sm:text-base leading-relaxed"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.2 }}
+                >
                   {feature.description}
-                </p>
+                </motion.p>
               </motion.div>
             </motion.div>
           ))}
@@ -133,116 +183,45 @@ const WhyChooseUs = () => {
   );
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.2
-    }
-  }
-};
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      type: "spring",
-      stiffness: 100,
-      damping: 20
-    }
-  }
-};
-
-const StatsCounter = ({ end, duration = 2000 }) => {
+const StatsCounter = ({ end, duration = 2000, startCount }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
+    if (!startCount) return;
+
     let startTime;
     let animationFrame;
 
     const animate = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const progress = Math.min((currentTime - startTime) / duration, 1);
-
       setCount(Math.floor(progress * end));
-
-      if (progress < 1) {
-        animationFrame = requestAnimationFrame(animate);
-      }
+      if (progress < 1) animationFrame = requestAnimationFrame(animate);
     };
 
     animationFrame = requestAnimationFrame(animate);
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [end, duration]);
+  }, [end, duration, startCount]);
 
-  return <motion.span
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    transition={{ duration: 0.5 }}
-  >
-    {count.toLocaleString()}
-  </motion.span>;
+  return <motion.span>{count.toLocaleString()}</motion.span>;
 };
 
+
 const About = () => {
-  const sectionVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20
-      }
-    }
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut"
-      }
-    },
-    hover: {
-      scale: 1.05,
-      boxShadow: "0 15px 30px rgba(0,0,0,0.2)",
-      transition: {
-        duration: 0.3
-      }
-    }
-  };
-
+  const navigate = useNavigate();
+  const [startCount, setStartCount] = useState(false);
   return (
     <div className="bg-gray-50 overflow-hidden">
       {/* Hero Section */}
       <motion.div
-        className="relative w-full h-screen text-white overflow-hidden"
+        className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-screen text-white overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={sectionVariants}
       >
         <motion.img
-          src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/famous-tower-bridge-london-illuminated-with-night-lights.jpg?updatedAt=1757150741562"
+          src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/view-statue-liberty-new-york-city.jpg?updatedAt=1757334591595"
           alt="Tower Bridge Hero"
           className="absolute inset-0 w-full h-full object-cover"
           initial={{ scale: 1.2, opacity: 0 }}
@@ -250,42 +229,36 @@ const About = () => {
           transition={{ duration: 1.5, ease: "easeOut" }}
         />
         <div className="absolute inset-0 bg-black/60"></div>
-        <div className="absolute top-10 right-10 w-20 h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute bottom-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-2xl animate-pulse"></div>
+        <div className="absolute top-6 sm:top-10 right-6 sm:right-10 w-16 sm:w-20 h-16 sm:h-20 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-10 sm:bottom-20 left-6 sm:left-10 w-24 sm:w-32 h-24 sm:h-32 bg-white/5 rounded-full blur-2xl animate-pulse"></div>
 
         <motion.div
-          className="relative z-10 flex flex-col justify-center items-center h-full px-4 text-center max-w-5xl mx-auto"
+          className="relative z-10 flex flex-col justify-center items-center h-full px-4 sm:px-6 text-center max-w-5xl mx-auto"
           variants={sectionVariants}
         >
           <motion.h1
             variants={itemVariants}
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 leading-tight"
           >
             About <span className="text-orange-500 drop-shadow-lg">Settle Nation</span>
           </motion.h1>
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-white leading-relaxed max-w-4xl mx-auto mb-8"
+            className="text-base sm:text-lg md:text-xl text-white leading-relaxed max-w-4xl mx-auto mb-6 sm:mb-8"
           >
-            Your trusted partner for visa, immigration, and global settlement solutions. We simplify the process so you can focus on building your future abroad with confidence and peace of mind.
+            Your trusted partner for visa, immigration, and global settlement solutions.
           </motion.p>
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
           >
             <motion.button
-              className="bg-orange-500 text-white hover:bg-orange-600 px-8 py-4 rounded-xl shadow-lg font-semibold"
+              className="bg-orange-500 text-white hover:bg-orange-600 px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg font-semibold text-sm sm:text-base"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/contact')}
             >
               Start Your Journey
-            </motion.button>
-            <motion.button
-              className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold"
-              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Learn More
             </motion.button>
           </motion.div>
         </motion.div>
@@ -293,29 +266,38 @@ const About = () => {
 
       {/* Stats Section */}
       <motion.div
-        className="bg-white py-16 px-4 sm:px-6 -mt-10 relative z-20"
+        className="bg-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 -mt-6 sm:-mt-10 relative z-20"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
+        onViewportEnter={() => setStartCount(true)}
       >
         <div className="max-w-6xl mx-auto">
           <motion.div
-            className="bg-gradient-to-r from-gray-50 to-white rounded-2xl shadow-xl p-8 sm:p-12"
+            className="bg-gradient-to-r from-gray-50 to-white rounded-2xl shadow-xl p-6 sm:p-8 md:p-12"
             variants={itemVariants}
           >
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 text-center">
               {[
                 { end: 15000, label: "Successful Cases" },
                 { end: 100, label: "Countries Covered" },
                 { end: 98, label: "Success Rate", suffix: "%" },
-                { end: 20, label: "Years Experience" }
+                { end: 20, label: "Years Experience" },
               ].map((stat, index) => (
                 <motion.div key={index} className="space-y-2" variants={itemVariants}>
-                  <div className="text-3xl sm:text-4xl font-bold text-orange-600">
-                    <StatsCounter end={stat.end} />{stat.suffix || "+"}
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-600">
+                    <StatsCounter end={stat.end} startCount={startCount} />
+                    {stat.suffix || "+"}
                   </div>
-                  <p className="text-gray-600 font-medium">{stat.label}</p>
+                  <motion.p
+                    className="text-gray-600 font-medium text-sm sm:text-base"
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    {stat.label}
+                  </motion.p>
                 </motion.div>
               ))}
             </div>
@@ -323,38 +305,39 @@ const About = () => {
         </div>
       </motion.div>
 
+
       {/* Who We Are */}
       <motion.div
-        className="max-w-7xl mx-auto py-20 px-4 sm:px-6"
+        className="max-w-7xl mx-auto py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
       >
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <motion.div className="order-2 lg:order-1 space-y-6" variants={itemVariants}>
             <div className="space-y-4">
               <motion.h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
                 variants={itemVariants}
               >
                 Who We Are
               </motion.h2>
               <motion.div
-                className="w-20 h-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full"
+                className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full"
                 variants={itemVariants}
               ></motion.div>
             </div>
-            <div className="space-y-6 text-gray-600 leading-relaxed">
-              <motion.p className="text-lg" variants={itemVariants}>
+            <div className="space-y-4 sm:space-y-6 text-gray-600 leading-relaxed text-sm sm:text-base">
+              <motion.p variants={itemVariants}>
                 At <span className="font-bold text-orange-600">Settle Nation</span>, we are more than just a visa consultancy — we are your partners in creating a seamless path to your global aspirations. From higher education to corporate assignments and permanent residency, we provide personalized guidance tailored to your unique journey.
               </motion.p>
-              <motion.p className="text-lg" variants={itemVariants}>
+              <motion.p variants={itemVariants}>
                 Our mission is to deliver transparent, reliable, and professional immigration solutions that eliminate stress and save time. With a proven track record of thousands of successful cases, we ensure every client feels supported at every step.
               </motion.p>
             </div>
             <motion.div
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap gap-3 sm:gap-4"
               variants={containerVariants}
             >
               {["Certified Consultants", "24/7 Support", "Global Network"].map((item, index) => (
@@ -363,16 +346,17 @@ const About = () => {
                   className="flex items-center space-x-2 text-green-600"
                   variants={itemVariants}
                 >
-                  <CheckCircle className="w-5 h-5" />
-                  <span className="font-medium">{item}</span>
+                  <CheckCircle className="w-4 sm:w-5 h-4 sm:h-5" />
+                  <motion.span className="font-medium text-sm sm:text-base">{item}</motion.span>
                 </motion.div>
               ))}
             </motion.div>
             <motion.button
-              className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-8 py-4 rounded-xl shadow-lg font-semibold"
+              className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg font-semibold text-sm sm:text-base"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
               variants={itemVariants}
+              onClick={() => navigate('/contact')}
             >
               Get Started Today
             </motion.button>
@@ -382,12 +366,12 @@ const About = () => {
             variants={imageVariants}
             whileHover="hover"
           >
-            <div className="relative">
+            <div className="relative w-full max-w-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-orange-100 rounded-3xl transform rotate-6 opacity-30"></div>
               <motion.img
                 src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/front-view-travel-agent-sitting-her-working-place-with-plane-tickets-agency-service-global-operator-manager-world-map.jpg?updatedAt=1757140294099"
                 alt="Who We Are"
-                className="relative z-10 rounded-3xl shadow-2xl w-full max-w-lg object-cover"
+                className="relative z-10 rounded-3xl shadow-2xl w-full object-cover"
                 variants={imageVariants}
               />
             </div>
@@ -397,23 +381,29 @@ const About = () => {
 
       {/* Services Section */}
       <motion.div
-        className="bg-gradient-to-br from-white to-gray-50 py-20 px-4 sm:px-6"
+        className="bg-gradient-to-br from-white to-gray-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
       >
         <div className="max-w-7xl mx-auto">
-          <motion.div className="text-center mb-16" variants={itemVariants}>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <motion.div className="text-center mb-10 sm:mb-12 md:mb-16" variants={itemVariants}>
+            <motion.h2
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6"
+              variants={itemVariants}
+            >
               Our Core Services
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            </motion.h2>
+            <motion.p
+              className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+              variants={itemVariants}
+            >
               From tailored consultation to full-scale immigration services, we provide everything you need for a smooth global transition.
-            </p>
+            </motion.p>
           </motion.div>
           <motion.div
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
             variants={containerVariants}
           >
             {[
@@ -438,25 +428,31 @@ const About = () => {
             ].map((service, index) => (
               <motion.div
                 key={index}
-                className="group relative bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform overflow-hidden"
+                className="group relative bg-white p-6 sm:p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform overflow-hidden"
                 variants={cardVariants}
                 whileHover={{ scale: 1.05, boxShadow: "0 20px 30px rgba(0,0,0,0.1)" }}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <motion.div className="relative z-10 text-center" whileHover={{ y: -5 }}>
                   <motion.div
-                    className={`inline-flex p-4 bg-gradient-to-br ${service.color} rounded-2xl mb-6`}
+                    className={`inline-flex p-3 sm:p-4 bg-gradient-to-br ${service.color} rounded-2xl mb-4 sm:mb-6`}
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 200 }}
                   >
-                    <service.icon className="w-8 h-8 text-white" />
+                    <service.icon className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
                   </motion.div>
-                  <h3 className="font-bold text-xl text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+                  <motion.h3
+                    className="font-bold text-lg sm:text-xl text-gray-900 mb-3 sm:mb-4 group-hover:text-orange-600 transition-colors duration-300"
+                    variants={itemVariants}
+                  >
                     {service.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
+                  </motion.h3>
+                  <motion.p
+                    className="text-gray-600 text-sm sm:text-base leading-relaxed"
+                    variants={itemVariants}
+                  >
                     {service.description}
-                  </p>
+                  </motion.p>
                 </motion.div>
               </motion.div>
             ))}
@@ -466,42 +462,42 @@ const About = () => {
 
       {/* Happy Clients Section */}
       <motion.div
-        className="max-w-7xl mx-auto py-20 px-4 sm:px-6"
+        className="max-w-7xl mx-auto py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
       >
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <motion.div className="space-y-6" variants={itemVariants}>
             <div className="space-y-4">
               <motion.h2
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+                className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
                 variants={itemVariants}
               >
                 Our Clients, Our Pride
               </motion.h2>
               <motion.div
-                className="w-20 h-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full"
+                className="w-16 sm:w-20 h-1 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full"
                 variants={itemVariants}
               ></motion.div>
             </div>
-            <div className="space-y-6 text-gray-600 leading-relaxed">
-              <motion.p className="text-lg" variants={itemVariants}>
+            <div className="space-y-4 sm:space-y-6 text-gray-600 leading-relaxed text-sm sm:text-base">
+              <motion.p variants={itemVariants}>
                 Nothing makes us happier than seeing our clients embark on their dream journeys. Thousands of families, students, and professionals have trusted <span className="font-bold text-orange-600">Settle Nation</span> to simplify their immigration journey.
               </motion.p>
-              <motion.p className="text-lg" variants={itemVariants}>
+              <motion.p variants={itemVariants}>
                 Join our growing community of satisfied clients who have built their future with confidence and peace of mind across the globe.
               </motion.p>
             </div>
-            <motion.div className="grid grid-cols-2 gap-6 pt-4" variants={containerVariants}>
-              <motion.div className="text-center p-4 bg-orange-50 rounded-xl" variants={itemVariants}>
-                <div className="text-2xl font-bold text-orange-600">4.9/5</div>
-                <div className="text-sm text-gray-600">Client Rating</div>
+            <motion.div className="grid grid-cols-2 gap-4 sm:gap-6 pt-4" variants={containerVariants}>
+              <motion.div className="text-center p-3 sm:p-4 bg-orange-50 rounded-xl" variants={itemVariants}>
+                <motion.div className="text-xl sm:text-2xl font-bold text-orange-600">4.9/5</motion.div>
+                <motion.div className="text-xs sm:text-sm text-gray-600">Client Rating</motion.div>
               </motion.div>
-              <motion.div className="text-center p-4 bg-orange-50 rounded-xl" variants={itemVariants}>
-                <div className="text-2xl font-bold text-orange-600">95%</div>
-                <div className="text-sm text-gray-600">Referral Rate</div>
+              <motion.div className="text-center p-3 sm:p-4 bg-orange-50 rounded-xl" variants={itemVariants}>
+                <motion.div className="text-xl sm:text-2xl font-bold text-orange-600">95%</motion.div>
+                <motion.div className="text-xs sm:text-sm text-gray-600">Referral Rate</motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
@@ -510,12 +506,12 @@ const About = () => {
             variants={imageVariants}
             whileHover="hover"
           >
-            <div className="relative">
+            <div className="relative w-full max-w-lg">
               <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-orange-100 rounded-3xl transform -rotate-6 opacity-30"></div>
               <motion.img
                 src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/day-office-travel-agency.jpg?updatedAt=1757139709961"
                 alt="Happy Clients"
-                className="relative z-10 rounded-3xl shadow-2xl w-full max-w-lg object-cover"
+                className="relative z-10 rounded-3xl shadow-2xl w-full object-cover"
                 variants={imageVariants}
               />
             </div>
@@ -525,25 +521,25 @@ const About = () => {
 
       {/* Travel Assistance */}
       <motion.div
-        className="bg-gradient-to-br from-gray-50 to-white py-20 px-4 sm:px-6"
+        className="bg-gradient-to-br from-white to-gray-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
       >
         <div className="max-w-7xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
             <motion.div
               className="flex justify-center order-2 lg:order-1"
               variants={imageVariants}
               whileHover="hover"
             >
-              <div className="relative">
+              <div className="relative w-full max-w-lg">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-200 to-blue-100 rounded-3xl transform rotate-6 opacity-30"></div>
                 <motion.img
                   src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/6-Tips-for-Travel-Vendor-Negotiations-A-Focus-on-Car-Rental-Services-in-Corporate-Travel-1024x538-1(1).jpg?updatedAt=1757138964669"
                   alt="Travel Assistance"
-                  className="relative z-10 rounded-3xl shadow-2xl w-full max-w-lg object-cover"
+                  className="relative z-10 rounded-3xl shadow-2xl w-full object-cover"
                   variants={imageVariants}
                 />
               </div>
@@ -551,33 +547,33 @@ const About = () => {
             <motion.div className="space-y-6 order-1 lg:order-2" variants={itemVariants}>
               <div className="space-y-4">
                 <motion.h2
-                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight"
+                  className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-tight"
                   variants={itemVariants}
                 >
                   Comprehensive Travel Support
                 </motion.h2>
                 <motion.div
-                  className="w-20 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"
+                  className="w-16 sm:w-20 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full"
                   variants={itemVariants}
                 ></motion.div>
               </div>
-              <div className="space-y-6 text-gray-600 leading-relaxed">
-                <motion.p className="text-lg" variants={itemVariants}>
+              <div className="space-y-4 sm:space-y-6 text-gray-600 leading-relaxed text-sm sm:text-base">
+                <motion.p variants={itemVariants}>
                   Beyond visas, we offer travel-related assistance including flight planning, accommodation guidance, and corporate travel solutions.
                 </motion.p>
-                <motion.p className="text-lg" variants={itemVariants}>
+                <motion.p variants={itemVariants}>
                   Whether you're relocating permanently or traveling temporarily, we ensure your journey is as smooth as your settlement.
                 </motion.p>
               </div>
-              <motion.div className="flex flex-wrap gap-4" variants={containerVariants}>
+              <motion.div className="flex flex-wrap gap-3 sm:gap-4" variants={containerVariants}>
                 {["Flight Planning", "Accommodation", "Corporate Travel"].map((item, index) => (
                   <motion.div
                     key={index}
                     className="flex items-center space-x-2 text-blue-600"
                     variants={itemVariants}
                   >
-                    <CheckCircle className="w-5 h-5" />
-                    <span className="font-medium">{item}</span>
+                    <CheckCircle className="w-4 sm:w-5 h-4 sm:h-5" />
+                    <motion.span className="font-medium text-sm sm:text-base">{item}</motion.span>
                   </motion.div>
                 ))}
               </motion.div>
@@ -586,61 +582,114 @@ const About = () => {
         </div>
       </motion.div>
 
+      {/* Contact Us Section */}
+      <motion.div
+        className="bg-gradient-to-br from-gray-50 to-orange-50 py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8"
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true }}
+        variants={sectionVariants}
+      >
+        <div className="max-w-7xl mx-auto">
+          <motion.div className="text-center mb-10 sm:mb-12 md:mb-16" variants={itemVariants}>
+            <motion.h2
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-4 sm:mb-6"
+              variants={itemVariants}
+            >
+              Contact <span className="bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">Settle Nation</span>
+            </motion.h2>
+            <motion.p
+              className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
+              variants={itemVariants}
+            >
+              Reach out to our expert team for personalized assistance with your visa, job, or admission interviews.
+            </motion.p>
+          </motion.div>
+          <motion.div
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 text-center"
+            variants={containerVariants}
+          >
+            <motion.div className="space-y-3 sm:space-y-4" variants={itemVariants}>
+              <motion.div className="inline-flex p-3 sm:p-4 bg-orange-100 rounded-xl">
+                <Mail className="w-5 sm:w-6 h-5 sm:h-6 text-orange-600" />
+              </motion.div>
+              <motion.p className="text-sm sm:text-base text-gray-600">settlenation.in@gmail.com</motion.p>
+            </motion.div>
+            <motion.div className="space-y-3 sm:space-y-4" variants={itemVariants}>
+              <motion.div className="inline-flex p-3 sm:p-4 bg-orange-100 rounded-xl">
+                <Phone className="w-5 sm:w-6 h-5 sm:h-6 text-orange-600" />
+              </motion.div>
+              <motion.p className="text-sm sm:text-base text-gray-600">+91 7347045972</motion.p>
+            </motion.div>
+            <motion.div className="space-y-3 sm:space-y-4" variants={itemVariants}>
+              <motion.div className="inline-flex p-3 sm:p-4 bg-orange-100 rounded-xl">
+                <MapPin className="w-5 sm:w-6 h-5 sm:h-6 text-orange-600" />
+              </motion.div>
+              <motion.p className="text-sm sm:text-base text-gray-600">
+                SCO 363, Top Floor, Sector 44-D, Chandigarh
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.div>
+
       <WhyChooseUs />
-      <WhyChooseUs1 />
 
       {/* Call to Action */}
       <motion.div
-        className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-white py-20 px-4 sm:px-6 text-center relative overflow-hidden"
+        className="bg-gradient-to-r from-orange-600 via-orange-500 to-orange-600 text-white py-12 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={sectionVariants}
       >
         <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
-          <div className="absolute bottom-10 right-10 w-24 h-24 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute top-6 sm:top-10 left-6 sm:left-10 w-24 sm:w-32 h-24 sm:h-32 bg-white/10 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-6 sm:bottom-10 right-6 sm:right-10 w-16 sm:w-24 h-16 sm:h-24 bg-white/10 rounded-full blur-xl animate-pulse"></div>
         </div>
         <motion.div className="relative z-10 max-w-4xl mx-auto" variants={itemVariants}>
           <motion.h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6"
+            className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6"
             variants={itemVariants}
           >
             Ready to Start Your Journey?
           </motion.h2>
           <motion.p
-            className="text-xl text-orange-100 mb-8 leading-relaxed"
+            className="text-base sm:text-lg md:text-xl text-orange-100 mb-6 sm:mb-8 leading-relaxed"
             variants={itemVariants}
           >
             Let Settle Nation handle the visa complexities while you prepare for a brighter future abroad. Your dream destination awaits!
           </motion.p>
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
             variants={containerVariants}
           >
             <motion.button
-              className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-4 rounded-xl shadow-lg font-semibold text-lg"
+              className="bg-white text-orange-600 hover:bg-gray-100 px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-lg font-semibold text-sm sm:text-base"
               whileHover={{ scale: 1.05, boxShadow: "0 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
               variants={itemVariants}
+              onClick={() => navigate('/contact')}
             >
               Contact Us Today
             </motion.button>
             <motion.button
-              className="border-2 border-white/30 text-white hover:bg-white/10 px-8 py-4 rounded-xl font-semibold text-lg"
+              className="border-2 border-white/30 text-white hover:bg-white/10 px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold text-sm sm:text-base"
               whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.15)" }}
               whileTap={{ scale: 0.95 }}
               variants={itemVariants}
+              onClick={() => navigate('/contact')}
             >
               Schedule Consultation
             </motion.button>
           </motion.div>
           <motion.div
-            className="mt-8 text-orange-200"
+            className="mt-6 sm:mt-8 text-orange-200"
             variants={itemVariants}
           >
-            <p className="textPunjabi: Noto Serif Gurmukhi
-            text-sm">Free consultation • No hidden fees • Expert guidance</p>
+            <motion.p className="text-xs sm:text-sm">
+              Free consultation • No hidden fees • Expert guidance
+            </motion.p>
           </motion.div>
         </motion.div>
       </motion.div>

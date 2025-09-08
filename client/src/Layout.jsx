@@ -15,15 +15,22 @@ import StudyVisa from "./Services/StudyVisa";
 import VisaCounselingPage from "./Services/VisaCounsling";
 import TouristVisa from "./Services/TouristVisa";
 import IELTSPage from "./Services/Ielts";
-// import ScrollToTop from "./components/ScrollToTop";
+import InterviewPreparation from "./Services/Interview";
+import ScrollToTop from "./components/ScrollToTop";
+import ScrollToTopButton from "./components/ScrollToTopButton";
+import ContactUs from "./pages/ContactUs";
+import BlogSection from "./pages/BlogSection";
+
 
 const Layout = () => {
   return (
     <Router>
+           {/* <ScrollToTop /> */}
+        <ScrollToTop />
+        <ScrollToTopButton />
       <div className="app-container flex flex-col min-h-screen">
         {/* Navbar at the top */}
         <Navbar />
-       {/* <ScrollToTop /> */}
         {/* Page Content */}
         <main className="flex-grow">
           <Routes>
@@ -31,13 +38,16 @@ const Layout = () => {
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
             <Route path="/testimonials" element={<Testimonials />} />
-             <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<ContactUs />} />
+            <Route path="/articlesBlogs" element={<BlogSection />} />
+     
 
             <Route path="/services/super-visa" element={<SuperVisa />} />
             <Route path="/services/study-visa" element={<StudyVisa />} />
             <Route path="/services/visa-counselling" element={<VisaCounselingPage />} />
             <Route path="/services/tourist-visa" element={<TouristVisa />} />
             <Route path="/services/ielts-pte" element={<IELTSPage />} />
+            <Route path="/services/interview-prep" element={<InterviewPreparation />} />
           </Routes>
         </main>
 

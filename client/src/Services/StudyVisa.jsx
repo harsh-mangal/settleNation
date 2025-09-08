@@ -23,6 +23,7 @@ import {
     Shield,
     Clock
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
     const [count, setCount] = useState(0);
@@ -68,6 +69,7 @@ const FloatingCard = ({ children, delay = 0 }) => {
 
 const StudyVisa = () => {
     const [scrollY, setScrollY] = useState(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY);
@@ -176,13 +178,19 @@ const StudyVisa = () => {
             </div>
 
             {/* Enhanced Hero Section */}
-            <div className="relative h-screen flex items-center justify-center text-center overflow-hidden">
+            <div className="relative w-full 
+                h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[100vh] 
+                text-white overflow-hidden flex items-center justify-center text-center">
+
+                {/* Background Image */}
                 <img
                     src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/young-hipster-company-friends-having-fun-together-smiling-listening-music-wireless-speakers.jpg?updatedAt=1757145362854"
                     alt="Study Abroad"
-                    className="absolute inset-0 w-full h-full object-cover transform scale-110"
+                    className="absolute inset-0 w-full h-full object-cover scale-110"
                     style={{ transform: `translateY(${scrollY * 0.5}px) scale(1.1)` }}
                 />
+
+                {/* Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70"></div>
 
                 {/* Animated Particles */}
@@ -190,27 +198,32 @@ const StudyVisa = () => {
                     {[...Array(20)].map((_, i) => (
                         <div
                             key={i}
-                            className="absolute w-2 h-2 bg-white/20 rounded-full animate-ping"
+                            className="absolute w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/20 rounded-full animate-ping"
                             style={{
                                 left: `${Math.random() * 100}%`,
                                 top: `${Math.random() * 100}%`,
                                 animationDelay: `${Math.random() * 4}s`,
-                                animationDuration: `${2 + Math.random() * 3}s`
+                                animationDuration: `${2 + Math.random() * 3}s`,
                             }}
                         ></div>
                     ))}
                 </div>
 
+                {/* Centered Content */}
                 <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
+                    {/* Small Label */}
                     <FloatingCard>
-                        <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-500/20 to-orange-400/20 backdrop-blur-sm rounded-full px-8 py-4 mb-8 border border-white/20">
-                            <GraduationCap className="w-6 h-6 text-orange-300 animate-pulse" />
-                            <span className="text-orange-200 font-semibold text-lg">Leading Study Visa Consultants</span>
+                        <div className="inline-flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-500/20 to-orange-400/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8 border border-white/20">
+                            <GraduationCap className="w-5 sm:w-6 h-5 sm:h-6 text-orange-300 animate-pulse" />
+                            <span className="text-xs sm:text-sm md:text-base text-orange-200 font-semibold">
+                                Leading Study Visa Consultants
+                            </span>
                         </div>
                     </FloatingCard>
 
+                    {/* Heading */}
                     <FloatingCard delay={200}>
-                        <h1 className="text-5xl sm:text-6xl lg:text-8xl font-bold text-white mb-8 leading-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
                             Your Pathway to
                             <span className="block bg-gradient-to-r from-orange-400 to-yellow-300 bg-clip-text text-transparent">
                                 Global Education
@@ -218,29 +231,37 @@ const StudyVisa = () => {
                         </h1>
                     </FloatingCard>
 
+                    {/* Description */}
                     <FloatingCard delay={400}>
-                        <p className="text-xl sm:text-2xl text-gray-200 leading-relaxed max-w-4xl mx-auto mb-12 font-light">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed max-w-4xl mx-auto mb-8 sm:mb-12 font-light">
                             Expert study visa consultants in
                             <span className="text-orange-300 font-semibold"> Chandigarh </span>
                             guiding you every step of the way to achieve your dreams.
                         </p>
                     </FloatingCard>
 
+                    {/* Buttons */}
                     <FloatingCard delay={600}>
-                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                            <button className="group bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-12 py-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-xl flex items-center space-x-3">
-                                <BookOpen className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
+                        <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
+                            <button className="group bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl shadow-lg sm:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3"
+                                onClick={() => navigate('/contact')}
+                            >
+                                <BookOpen className="w-5 sm:w-6 h-5 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
                                 <span>Start Your Journey</span>
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                             </button>
-                            <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-12 py-6 rounded-2xl transition-all duration-300 font-semibold text-xl backdrop-blur-sm flex items-center space-x-3">
-                                <Phone className="w-6 h-6 group-hover:animate-pulse" />
+                            <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-6 sm:px-10 py-3 sm:py-5 rounded-2xl transition-all duration-300 font-semibold text-sm sm:text-lg backdrop-blur-sm flex items-center space-x-2 sm:space-x-3"
+                                onClick={() => navigate('/contact')}
+                            >
+                                <Phone className="w-5 sm:w-6 h-5 sm:h-6 group-hover:animate-pulse" />
                                 <span>Free Consultation</span>
                             </button>
                         </div>
                     </FloatingCard>
                 </div>
             </div>
+
+
 
             {/* Stats Section */}
             <div className="bg-white py-20 px-4 sm:px-6 -mt-20 relative z-20">
@@ -592,12 +613,16 @@ const StudyVisa = () => {
 
                     <FloatingCard delay={600}>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-                            <button className="group bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 hover:from-orange-700 hover:via-orange-600 hover:to-orange-500 text-white px-12 py-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-xl flex items-center space-x-3 border-2 border-orange-400/50 hover:border-orange-300">
+                            <button className="group bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 hover:from-orange-700 hover:via-orange-600 hover:to-orange-500 text-white px-12 py-6 rounded-2xl shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-xl flex items-center space-x-3 border-2 border-orange-400/50 hover:border-orange-300"
+                                onClick={() => navigate('/contact')}
+                            >
                                 <BookOpen className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
                                 <span>Start Application</span>
                                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
                             </button>
-                            <button className="group border-2 border-orange-400 text-orange-700 hover:bg-orange-50 px-12 py-6 rounded-2xl transition-all duration-300 font-semibold text-xl flex items-center space-x-3 hover:border-orange-500 hover:shadow-lg bg-white">
+                            <button className="group border-2 border-orange-400 text-orange-700 hover:bg-orange-50 px-12 py-6 rounded-2xl transition-all duration-300 font-semibold text-xl flex items-center space-x-3 hover:border-orange-500 hover:shadow-lg bg-white"
+                                onClick={() => navigate('/contact')}
+                            >
                                 <Phone className="w-6 h-6 group-hover:animate-bounce text-orange-600" />
                                 <span>Free Consultation</span>
                             </button>

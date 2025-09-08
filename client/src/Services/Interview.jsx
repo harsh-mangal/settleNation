@@ -4,8 +4,6 @@ import {
     FileText,
     CheckCircle,
     Globe,
-    Plane,
-    Calendar,
     UserCheck,
     Star,
     HelpCircle,
@@ -13,14 +11,13 @@ import {
     Shield,
     Clock,
     Award,
-    MapPin,
     Users,
-    Briefcase
+    Briefcase,
+    BookOpen,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-
-// Enhanced animations
+// Animation variants
 const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -50,8 +47,8 @@ const slideFromLeft = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
+        transition: { duration: 0.8, ease: "easeOut" },
+    },
 };
 
 const slideFromRight = {
@@ -59,8 +56,8 @@ const slideFromRight = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 0.8, ease: "easeOut" }
-    }
+        transition: { duration: 0.8, ease: "easeOut" },
+    },
 };
 
 // Typewriter effect
@@ -91,7 +88,7 @@ const StaggeredText = ({ text, className = "" }) => {
                     transition={{
                         duration: 0.6,
                         delay: wordIndex * 0.1,
-                        ease: "easeOut"
+                        ease: "easeOut",
                     }}
                 >
                     {word.split("").map((char, charIndex) => (
@@ -101,7 +98,7 @@ const StaggeredText = ({ text, className = "" }) => {
                             animate={{ opacity: 1, rotateY: 0 }}
                             transition={{
                                 duration: 0.4,
-                                delay: (wordIndex * 0.1) + (charIndex * 0.02)
+                                delay: wordIndex * 0.1 + charIndex * 0.02,
                             }}
                         >
                             {char}
@@ -134,8 +131,6 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
                     filter: isHovered ? "brightness(1.1) saturate(1.2)" : "brightness(1) saturate(1)",
                 }}
             />
-
-            {/* Enhanced overlay effects */}
             {overlay && (
                 <motion.div
                     className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"
@@ -144,15 +139,11 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
                     transition={{ duration: 0.4 }}
                 />
             )}
-
-            {/* Shimmer effect */}
             <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full"
                 animate={{ translateX: isHovered ? "200%" : "-100%" }}
                 transition={{ duration: 1, ease: "easeInOut" }}
             />
-
-            {/* Floating particles */}
             <AnimatePresence>
                 {isHovered && (
                     <>
@@ -161,26 +152,25 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
                                 key={i}
                                 className="absolute w-2 h-2 bg-orange-400 rounded-full"
                                 style={{
-                                    left: `${20 + (i * 10)}%`,
-                                    top: `${30 + (i * 5)}%`,
+                                    left: `${20 + i * 10}%`,
+                                    top: `${30 + i * 5}%`,
                                 }}
                                 initial={{ scale: 0, opacity: 0 }}
                                 animate={{
                                     scale: [0, 1.5, 0],
                                     opacity: [0, 1, 0],
-                                    y: [-30, -60, -90]
+                                    y: [-30, -60, -90],
                                 }}
                                 transition={{
                                     duration: 2.5,
                                     delay: i * 0.15,
-                                    repeat: Infinity
+                                    repeat: Infinity,
                                 }}
                             />
                         ))}
                     </>
                 )}
             </AnimatePresence>
-
             {children}
         </motion.div>
     );
@@ -196,7 +186,7 @@ const ServiceCard = ({ service, index }) => {
             whileHover={{
                 y: -10,
                 boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                borderColor: "rgba(255, 165, 0, 0.5)"
+                borderColor: "rgba(255, 165, 0, 0.5)",
             }}
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
@@ -208,19 +198,17 @@ const ServiceCard = ({ service, index }) => {
                 alt={service.title}
                 className="w-full h-64"
             >
-                {/* Service number badge */}
                 <motion.div
                     className="absolute top-4 left-4 w-12 h-12 bg-gradient-to-r from-orange-500 to-orange-400 rounded-2xl flex items-center justify-center text-white font-black text-lg shadow-lg"
                     animate={{
                         scale: isHovered ? [1, 1.2, 1] : 1,
-                        rotate: isHovered ? 360 : 0
+                        rotate: isHovered ? 360 : 0,
                     }}
                     transition={{ duration: 0.6 }}
                 >
                     {index + 1}
                 </motion.div>
             </EnhancedImage>
-
             <div className="p-8 space-y-4">
                 <motion.h3
                     className="text-2xl font-black text-gray-900"
@@ -228,7 +216,6 @@ const ServiceCard = ({ service, index }) => {
                 >
                     <StaggeredText text={service.title} />
                 </motion.h3>
-
                 <motion.p
                     className="text-gray-600 leading-relaxed"
                     initial={{ opacity: 0.8 }}
@@ -237,102 +224,87 @@ const ServiceCard = ({ service, index }) => {
                     {service.desc}
                 </motion.p>
             </div>
-
-            {/* Gradient overlay on hover */}
             <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-orange-500/10 to-transparent opacity-0 pointer-events-none"
                 animate={{ opacity: isHovered ? 1 : 0 }}
                 transition={{ duration: 0.3 }}
             />
         </motion.div>
-
     );
 };
 
-const TouristVisa = () => {
+const InterviewPreparation = () => {
     const [activeSection, setActiveSection] = useState(0);
-    const navigate = useNavigate();
+    const navigate=useNavigate();
 
     const services = [
         {
-            title: "Application Preparation",
-            desc: "Expert assistance in filling out complex visa forms accurately and gathering all required documents to avoid common pitfalls that could lead to rejection.",
-            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/joyful.png?updatedAt=1757157286285",
+            title: "Student Visa Interviews",
+            desc: "We help you prepare for questions related to your academic background, study plans, and intentions to return to your home country after completing your education.",
+            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/visa-application-composition-with-american-flag.jpg?updatedAt=1757307276314",
         },
         {
-            title: "Document Review & Verification",
-            desc: "Thorough review of your documents to ensure they meet embassy standards, reducing the risk of delays or rejections through our meticulous verification process.",
-            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/portrait-excited-young-woman-dressed-summer-clothes-holding-passport-with-flying-tickets-while-standing-with-suitcase-isolated.jpg?updatedAt=1757157180155",
+            title: "Work Visa Interviews",
+            desc: "Our coaches guide you through common questions about your job qualifications, skills, and employer expectations.",
+            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/business?updatedAt=1757307397281",
         },
         {
-            title: "Visa Submission & Tracking",
-            desc: "We handle the entire submission process and provide real-time tracking of your application status, keeping you informed every step of the way.",
-            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pexels-nathalia-crispim-271245353-33789272.jpg?updatedAt=1757157178339",
+            title: "Immigration Visa Interviews",
+            desc: "Learn how to confidently address questions about your background, family, and reasons for immigrating.",
+            img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/african-applicant-make-hr-laugh-job-interview-good-impression.jpg?updatedAt=1757307280872",
         },
     ];
 
     const benefits = [
         {
-            icon: <CheckCircle className="w-12 h-12 text-orange-600" />,
-            title: "High Success Rate",
-            desc: "Our meticulous approach ensures a 95%+ approval rate for tourist visas with expert guidance.",
-            color: "from-green-500 to-green-400"
-        },
-        {
-            icon: <Globe className="w-12 h-12 text-orange-600" />,
-            title: "Global Expertise",
-            desc: "Comprehensive knowledge of visa requirements for over 150 countries worldwide.",
-            color: "from-blue-500 to-blue-400"
-        },
-        {
-            icon: <Plane className="w-12 h-12 text-orange-600" />,
-            title: "Fast Processing",
-            desc: "Efficient services to get your visa approved in the shortest time possible with priority handling.",
-            color: "from-purple-500 to-purple-400"
-        },
-        {
             icon: <UserCheck className="w-12 h-12 text-orange-600" />,
-            title: "Personalized Support",
-            desc: "Dedicated consultants provide one-on-one guidance throughout your entire visa journey.",
-            color: "from-red-500 to-red-400"
+            title: "Customized Coaching",
+            desc: "Tailored sessions to suit your specific interview type, ensuring you’re fully prepared.",
+            color: "from-orange-500 to-orange-400",
         },
         {
-            icon: <Calendar className="w-12 h-12 text-orange-600" />,
-            title: "24/7 Assistance",
-            desc: "Round-the-clock support for any queries, urgent needs, or last-minute changes.",
-            color: "from-indigo-500 to-indigo-400"
+            icon: <Award className="w-12 h-12 text-orange-600" />,
+            title: "Experienced Trainers",
+            desc: "Our coaches provide valuable insights and practical advice to handle questions effectively.",
+            color: "from-blue-500 to-blue-400",
+        },
+        {
+            icon: <BookOpen className="w-12 h-12 text-orange-600" />,
+            title: "Mock Interviews",
+            desc: "Simulate real-world scenarios to practice and refine your responses in a stress-free environment.",
+            color: "from-green-500 to-green-400",
         },
         {
             icon: <Star className="w-12 h-12 text-orange-600" />,
-            title: "Affordable Pricing",
-            desc: "Transparent and competitive fees with no hidden costs or surprise charges.",
-            color: "from-yellow-500 to-yellow-400"
+            title: "Detailed Feedback",
+            desc: "Receive constructive feedback on communication, body language, and response clarity.",
+            color: "from-red-500 to-red-400",
         },
     ];
 
     const stats = [
-        { number: "15K+", label: "Successful Applications", icon: Award },
-        { number: "95%", label: "Approval Rate", icon: CheckCircle },
-        { number: "150+", label: "Countries Covered", icon: Globe },
-        { number: "24/7", label: "Expert Support", icon: Clock }
+        { number: "10K+", label: "Successful Interviews", icon: Award },
+        { number: "95%", label: "Success Rate", icon: CheckCircle },
+        { number: "100+", label: "Expert Coaches", icon: Users },
+        { number: "24/7", label: "Support Available", icon: Clock },
     ];
 
     return (
         <div className="w-full bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-            {/* Enhanced Hero Section */}
+            {/* Hero Section */}
             <div className="relative w-full 
                 h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] 
                 text-white overflow-hidden flex items-center justify-center text-center">
 
                 {/* Background Image */}
                 <EnhancedImage
-                    src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pexels-thesilentman-205377.jpg?updatedAt=1757157178556"
-                    alt="Tourist Visa Banner"
+                    src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/business?updatedAt=1757307397281"
+                    alt="Interview Preparation Banner"
                     className="absolute inset-0 w-full h-full object-cover"
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60"></div>
 
-                    {/* Animated background elements */}
+                    {/* Animated Background Particles */}
                     <div className="absolute inset-0 pointer-events-none">
                         {[...Array(25)].map((_, i) => (
                             <motion.div
@@ -379,10 +351,10 @@ const TouristVisa = () => {
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                             >
-                                <Plane className="w-4 sm:w-6 h-4 sm:h-6 text-orange-300" />
+                                <UserCheck className="w-4 sm:w-6 h-4 sm:h-6 text-orange-300" />
                             </motion.div>
                             <span className="text-sm sm:text-base md:text-lg text-orange-200 font-bold">
-                                Premium Tourist Visa Services
+                                Expert Interview Preparation
                             </span>
                         </motion.div>
 
@@ -391,9 +363,9 @@ const TouristVisa = () => {
                             variants={itemVariants}
                             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white drop-shadow-2xl leading-tight"
                         >
-                            Tourist Visa
+                            Ace Your
                             <span className="block bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent">
-                                <TypewriterText text="Made Simple" />
+                                <TypewriterText text="Visa Interview" />
                             </span>
                         </motion.h1>
 
@@ -407,9 +379,9 @@ const TouristVisa = () => {
                                 className="group bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl shadow-xl font-semibold sm:font-black text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3 relative overflow-hidden"
                                 whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(255, 165, 0, 0.6)" }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => navigate('/contact')}
+                                 onClick={()=>navigate('/contact')}
                             >
-                                <span className="relative z-10">Start Your Journey</span>
+                                <span className="relative z-10">Start Preparing Now</span>
                                 <motion.div
                                     animate={{ x: [0, 5, 0] }}
                                     transition={{ duration: 2, repeat: Infinity }}
@@ -424,7 +396,7 @@ const TouristVisa = () => {
                                 className="border-2 border-orange-400 text-orange-300 hover:text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl font-semibold sm:font-bold text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-lg shadow-lg relative overflow-hidden"
                                 whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 165, 0, 0.2)" }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => navigate('/contact')}
+                                 onClick={()=>navigate('/contact')}
                             >
                                 <HelpCircle className="w-4 sm:w-6 h-4 sm:h-6" />
                                 <span>Free Consultation</span>
@@ -435,8 +407,7 @@ const TouristVisa = () => {
             </div>
 
 
-
-            {/* Enhanced Intro Section - Side by Side Layout */}
+            {/* Intro Section */}
             <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     <motion.div
@@ -450,65 +421,24 @@ const TouristVisa = () => {
                             <Globe className="w-6 h-6 text-orange-600" />
                             <span className="text-orange-700 font-bold text-lg">Welcome to Settle Nation</span>
                         </div>
-
                         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900 leading-tight">
-                            Your Gateway to
+                            Your Path to
                             <span className="block bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                                <TypewriterText text="World Exploration" />
+                                <TypewriterText text="Interview Success" />
                             </span>
                         </h2>
-
                         <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                            <motion.p
-                                variants={itemVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                            >
-                                Exploring the world should be <span className="font-bold text-orange-600">exciting, not stressful</span>. At Settle Nation, we're dedicated to making your travel dreams a reality with our seamless and reliable tourist visa services.
+                            <motion.p variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                                At Settle Nation, we provide <span className="font-bold text-orange-600">expert interview preparation</span> to help you confidently present yourself and succeed in interviews for visas, jobs, or university admissions abroad.
                             </motion.p>
-
-                            <motion.p
-                                variants={itemVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.2 }}
-                            >
-                                With years of experience handling tourist visas for destinations worldwide, we understand the nuances of each country's requirements and provide personalized assistance.
+                            <motion.p variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }}>
+                                Our customized coaching equips you with the tools, techniques, and confidence to leave a lasting impression, ensuring you’re fully prepared for any interview scenario.
                             </motion.p>
-
-                            <motion.p
-                                variants={itemVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                                transition={{ delay: 0.4 }}
-                            >
-                                From popular destinations like Europe and the USA to exotic locations in Asia and Africa, we've got you covered. Let us handle the paperwork while you focus on packing!
+                            <motion.p variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.4 }}>
+                                Whether it’s a student visa, work visa, or immigration interview, we’ve got you covered with tailored guidance and practical strategies.
                             </motion.p>
                         </div>
-
-                        <motion.div
-                            className="flex flex-wrap gap-4 pt-4"
-                            variants={containerVariants}
-                            initial="hidden"
-                            whileInView="visible"
-                            viewport={{ once: true }}
-                        >
-                            {["Europe", "USA", "Canada", "Australia", "Asia", "Middle East"].map((destination, idx) => (
-                                <motion.span
-                                    key={idx}
-                                    variants={itemVariants}
-                                    className="bg-gradient-to-r from-orange-500 to-orange-400 text-white px-4 py-2 rounded-full font-semibold shadow-lg"
-                                    whileHover={{ scale: 1.1, rotate: 5 }}
-                                >
-                                    {destination}
-                                </motion.span>
-                            ))}
-                        </motion.div>
                     </motion.div>
-
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
@@ -518,8 +448,8 @@ const TouristVisa = () => {
                     >
                         <div className="absolute -inset-6 bg-gradient-to-br from-orange-200/40 to-orange-100/20 rounded-3xl blur-2xl"></div>
                         <EnhancedImage
-                            src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/portrait-excited-young-woman-dressed-summer-clothes-holding-passport-with-flying-tickets-while-standing-with-suitcase-isolated.jpg?updatedAt=1757157180155"
-                            alt="Happy Traveler"
+                            src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/african-applicant-make-hr-laugh-job-interview-good-impression.jpg?updatedAt=1757307280872"
+                            alt="Interview Preparation"
                             className="relative rounded-3xl shadow-2xl border-4 border-white/80 overflow-hidden"
                             overlay={false}
                         >
@@ -530,21 +460,19 @@ const TouristVisa = () => {
                                 transition={{ duration: 0.8, delay: 1 }}
                                 whileHover={{ scale: 1.1 }}
                             >
-                                ✈️ Ready to Travel!
+                                🎤 Ace Your Interview!
                             </motion.div>
                         </EnhancedImage>
                     </motion.div>
                 </div>
             </section>
 
-            {/* Why You Need Section - Enhanced Layout */}
+            {/* Why Interview Prep Section */}
             <section className="bg-gradient-to-br from-orange-50 via-orange-25 to-gray-50 py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-                {/* Background decoration */}
                 <div className="absolute inset-0 opacity-10">
                     <div className="absolute top-20 left-20 w-40 h-40 bg-orange-400 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 right-20 w-32 h-32 bg-yellow-400 rounded-full blur-2xl"></div>
                 </div>
-
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="grid lg:grid-cols-2 gap-16 items-center">
                         <motion.div
@@ -555,8 +483,8 @@ const TouristVisa = () => {
                             className="order-2 lg:order-1"
                         >
                             <EnhancedImage
-                                src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pexels-nathalia-crispim-271245353-33789272.jpg?updatedAt=1757157178339"
-                                alt="Visa Requirements"
+                                src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/visa-application-composition-with-american-flag.jpg?updatedAt=1757307276314"
+                                alt="Interview Preparation Needs"
                                 className="rounded-3xl shadow-2xl border-4 border-white/80 overflow-hidden"
                                 overlay={false}
                             >
@@ -569,7 +497,6 @@ const TouristVisa = () => {
                                 </motion.div>
                             </EnhancedImage>
                         </motion.div>
-
                         <motion.div
                             initial="hidden"
                             whileInView="visible"
@@ -579,26 +506,18 @@ const TouristVisa = () => {
                         >
                             <div className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-6 py-3 shadow-lg">
                                 <HelpCircle className="w-6 h-6 text-orange-600" />
-                                <span className="text-orange-700 font-bold text-lg">Essential Information</span>
+                                <span className="text-orange-700 font-bold text-lg">Why Prepare?</span>
                             </div>
-
                             <h2 className="text-4xl sm:text-5xl font-black text-gray-900 leading-tight">
-                                Why You Need a
+                                Why You Need
                                 <span className="block bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-                                    <TypewriterText text="Tourist Visa" />
+                                    <TypewriterText text="Interview Preparation" />
                                 </span>
                             </h2>
-
                             <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                                <motion.p
-                                    variants={itemVariants}
-                                    initial="hidden"
-                                    whileInView="visible"
-                                    viewport={{ once: true }}
-                                >
-                                    A tourist visa is your <span className="font-bold text-orange-600">official permission</span> to enter and explore a foreign country. It's not just a formality—it's your gateway to incredible experiences and memories.
+                                <motion.p variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
+                                    A successful interview is your <span className="font-bold text-orange-600">key to opportunities</span> abroad, whether for a visa, job, or university admission.
                                 </motion.p>
-
                                 <motion.p
                                     variants={itemVariants}
                                     initial="hidden"
@@ -606,9 +525,8 @@ const TouristVisa = () => {
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.2 }}
                                 >
-                                    Without proper documentation, you risk being denied entry, leading to canceled plans and financial losses. Each country has unique requirements, processing times, and regulations.
+                                    Without proper preparation, you risk missing critical questions or failing to convey your qualifications, which could lead to rejections.
                                 </motion.p>
-
                                 <motion.p
                                     variants={itemVariants}
                                     initial="hidden"
@@ -616,42 +534,15 @@ const TouristVisa = () => {
                                     viewport={{ once: true }}
                                     transition={{ delay: 0.4 }}
                                 >
-                                    Whether it's a Schengen visa for Europe, ESTA for the US, or eVisitor for Australia, we provide up-to-date guidance to ensure your travel is smooth and worry-free.
+                                    Our expert coaching ensures you’re ready to tackle any question with confidence, clarity, and poise, maximizing your chances of success.
                                 </motion.p>
                             </div>
-
-                            <motion.div
-                                className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-6"
-                                variants={containerVariants}
-                                initial="hidden"
-                                whileInView="visible"
-                                viewport={{ once: true }}
-                            >
-                                {[
-                                    { icon: Shield, text: "Legal Entry" },
-                                    { icon: Clock, text: "Time Sensitive" },
-                                    { icon: Globe, text: "Country Specific" }
-                                ].map((item, idx) => (
-                                    <motion.div
-                                        key={idx}
-                                        variants={itemVariants}
-                                        className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-orange-100 shadow-md text-center"
-                                        whileHover={{
-                                            scale: 1.05,
-                                            backgroundColor: "rgba(255, 165, 0, 0.1)"
-                                        }}
-                                    >
-                                        <item.icon className="w-8 h-8 text-orange-600 mx-auto mb-2" />
-                                        <span className="text-sm font-semibold text-gray-700">{item.text}</span>
-                                    </motion.div>
-                                ))}
-                            </motion.div>
                         </motion.div>
                     </div>
                 </div>
             </section>
 
-            {/* Enhanced Services Section */}
+            {/* Services Section */}
             <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
                 <motion.div
                     initial="hidden"
@@ -660,25 +551,15 @@ const TouristVisa = () => {
                     variants={containerVariants}
                     className="space-y-16"
                 >
-                    <div className="text-center space-y-6">
-                        <motion.h2
-                            variants={itemVariants}
-                            className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900"
-                        >
+                    <motion.div className="text-center space-y-6">
+                        <motion.h2 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900">
                             Our <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">Services</span>
                         </motion.h2>
-                        <motion.p
-                            variants={itemVariants}
-                            className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
-                        >
-                            <StaggeredText text="Comprehensive visa solutions designed to make your travel dreams come true with expert guidance every step of the way." />
+                        <motion.p variants={itemVariants} className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                            <StaggeredText text="Comprehensive interview preparation tailored to your specific needs, ensuring you shine in any scenario." />
                         </motion.p>
-                    </div>
-
-                    <motion.div
-                        className="grid grid-cols-1 lg:grid-cols-3 gap-8"
-                        variants={containerVariants}
-                    >
+                    </motion.div>
+                    <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-8" variants={containerVariants}>
                         {services.map((service, index) => (
                             <ServiceCard key={index} service={service} index={index} />
                         ))}
@@ -686,15 +567,12 @@ const TouristVisa = () => {
                 </motion.div>
             </section>
 
-            {/* Enhanced Benefits Section */}
+            {/* Benefits Section */}
             <section className="bg-gradient-to-br from-gray-50 via-orange-50/30 to-gray-50 py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-                {/* Background patterns */}
                 <div className="absolute inset-0 opacity-5">
                     <div className="absolute top-10 left-10 w-96 h-96 bg-orange-400 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-10 right-10 w-80 h-80 bg-yellow-400 rounded-full blur-3xl"></div>
-                    <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-red-400 rounded-full blur-2xl"></div>
                 </div>
-
                 <div className="max-w-7xl mx-auto relative z-10">
                     <motion.div
                         initial="hidden"
@@ -703,34 +581,22 @@ const TouristVisa = () => {
                         variants={containerVariants}
                         className="space-y-16"
                     >
-                        <div className="text-center space-y-6">
+                        <motion.div className="text-center space-y-6">
                             <motion.div
                                 variants={itemVariants}
                                 className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-8 py-4 shadow-lg"
                             >
                                 <Star className="w-6 h-6 text-orange-600" />
-                                <span className="text-orange-700 font-bold text-lg">Why Choose Settle Nation</span>
+                                <span className="text-orange-700 font-bold text-lg">Why Choose Us</span>
                             </motion.div>
-
-                            <motion.h2
-                                variants={itemVariants}
-                                className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900"
-                            >
+                            <motion.h2 variants={itemVariants} className="text-4xl sm:text-5xl lg:text-6xl font-black text-gray-900">
                                 Unmatched <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">Excellence</span>
                             </motion.h2>
-
-                            <motion.p
-                                variants={itemVariants}
-                                className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed"
-                            >
-                                <StaggeredText text="Experience the difference with our premium visa services, backed by years of expertise and thousands of successful applications." />
+                            <motion.p variants={itemVariants} className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                                <StaggeredText text="Experience the difference with our premium interview preparation services, backed by expert coaches and proven results." />
                             </motion.p>
-                        </div>
-
-                        <motion.div
-                            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-                            variants={containerVariants}
-                        >
+                        </motion.div>
+                        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8" variants={containerVariants}>
                             {benefits.map((benefit, index) => (
                                 <motion.div
                                     key={index}
@@ -739,15 +605,13 @@ const TouristVisa = () => {
                                     whileHover={{
                                         y: -10,
                                         boxShadow: "0 25px 50px rgba(0,0,0,0.15)",
-                                        scale: 1.02
+                                        scale: 1.02,
                                     }}
                                     onHoverStart={() => setActiveSection(index)}
                                 >
-                                    {/* Background gradient on hover */}
                                     <motion.div
                                         className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`}
                                     />
-
                                     <div className="relative z-10 flex flex-col items-center text-center space-y-6">
                                         <motion.div
                                             className="p-4 bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl shadow-lg"
@@ -756,20 +620,17 @@ const TouristVisa = () => {
                                         >
                                             {benefit.icon}
                                         </motion.div>
-
                                         <motion.h3
                                             className="text-2xl font-black text-gray-900 group-hover:text-orange-600 transition-colors duration-300"
                                         >
                                             <StaggeredText text={benefit.title} />
                                         </motion.h3>
-
                                         <motion.p
                                             className="text-gray-600 leading-relaxed"
                                             animate={{ opacity: activeSection === index ? 1 : 0.8 }}
                                         >
                                             {benefit.desc}
                                         </motion.p>
-
                                         <motion.div
                                             className="flex items-center text-orange-600 font-semibold opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                                             animate={{ x: activeSection === index ? 10 : 0 }}
@@ -781,8 +642,6 @@ const TouristVisa = () => {
                                 </motion.div>
                             ))}
                         </motion.div>
-
-                        {/* Process Timeline */}
                         <motion.div
                             variants={containerVariants}
                             className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-xl border border-white/60"
@@ -793,13 +652,12 @@ const TouristVisa = () => {
                             >
                                 Simple 4-Step <span className="text-orange-600">Process</span>
                             </motion.h3>
-
                             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                                 {[
-                                    { step: "01", title: "Consultation", desc: "Free initial assessment", icon: Users },
-                                    { step: "02", title: "Documentation", desc: "Prepare required papers", icon: FileText },
-                                    { step: "03", title: "Submission", desc: "Apply to embassy", icon: Briefcase },
-                                    { step: "04", title: "Approval", desc: "Receive your visa", icon: CheckCircle }
+                                    { step: "01", title: "Consultation", desc: "Assess your needs", icon: Users },
+                                    { step: "02", title: "Preparation", desc: "Customized coaching", icon: BookOpen },
+                                    { step: "03", title: "Mock Interviews", desc: "Practice sessions", icon: Briefcase },
+                                    { step: "04", title: "Feedback", desc: "Improve performance", icon: CheckCircle },
                                 ].map((process, idx) => (
                                     <motion.div
                                         key={idx}
@@ -807,11 +665,9 @@ const TouristVisa = () => {
                                         className="text-center space-y-4 relative"
                                         whileHover={{ scale: 1.05 }}
                                     >
-                                        {/* Connecting line */}
                                         {idx < 3 && (
                                             <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-gradient-to-r from-orange-300 to-orange-200 -translate-y-1/2"></div>
                                         )}
-
                                         <motion.div
                                             className="relative mx-auto w-16 h-16 bg-gradient-to-r from-orange-500 to-orange-400 rounded-2xl flex items-center justify-center text-white font-black text-xl shadow-lg"
                                             whileHover={{ rotate: 360, scale: 1.1 }}
@@ -820,7 +676,6 @@ const TouristVisa = () => {
                                             {process.step}
                                             <div className="absolute -inset-2 bg-gradient-to-r from-orange-400/30 to-orange-300/20 rounded-3xl blur opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                                         </motion.div>
-
                                         <div className="space-y-2">
                                             <h4 className="text-lg font-bold text-gray-900">{process.title}</h4>
                                             <p className="text-sm text-gray-600">{process.desc}</p>
@@ -834,20 +689,16 @@ const TouristVisa = () => {
             </section>
 
             {/* Call to Action Section */}
-            <section className="relative w-full h-[50vh] min-h-[24rem] max-h-[500px] overflow-hidden">
-                {/* Background Image */}
+            <section className="relative min-h-screen w-full h-[40rem] overflow-hidden">
                 <EnhancedImage
-                    src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pexels-nathalia-crispim-271245353-33789272.jpg?updatedAt=1757157178339"
-                    alt="Start Your Journey"
+                    src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/business?updatedAt=1757307397281"
+                    alt="Start Your Preparation"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
+                <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70" />
 
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-500/40 via-orange-400/30 to-orange-600/40" />
-
-                {/* Floating Elements */}
                 <div className="absolute inset-0 pointer-events-none">
-                    {[...Array(15)].map((_, i) => (
+                    {[...Array(20)].map((_, i) => (
                         <motion.div
                             key={i}
                             className="absolute"
@@ -856,75 +707,71 @@ const TouristVisa = () => {
                                 top: `${Math.random() * 100}%`,
                             }}
                             animate={{
-                                y: [0, -80, 0],
-                                x: [0, Math.random() * 80 - 40, 0],
-                                opacity: [0.1, 0.4, 0.1],
-                                scale: [0.8, 1.2, 0.8],
+                                y: [0, -100, 0],
+                                x: [0, Math.random() * 100 - 50, 0],
+                                opacity: [0.1, 0.5, 0.1],
+                                scale: [1, 1.5, 1],
                             }}
                             transition={{
-                                duration: 8 + Math.random() * 4,
+                                duration: 10 + Math.random() * 5,
                                 repeat: Infinity,
-                                delay: Math.random() * 4,
+                                delay: Math.random() * 5,
                             }}
                         >
-                            <div className="w-4 h-4 sm:w-5 sm:h-5 bg-white/20 rounded-full blur-sm" />
+                            <div className="w-6 h-6 bg-white/20 rounded-full blur-sm"></div>
                         </motion.div>
                     ))}
                 </div>
-
-                {/* Centered Content */}
-                <div className="absolute inset-0 flex items-center justify-center text-center px-4 sm:px-6 lg:px-8">
-                    <div className="relative z-10 max-w-4xl mx-auto space-y-4 sm:space-y-6">
-                        {/* Tagline */}
+                <div className="absolute inset-0 flex items-center justify-center text-center">
+                    <div className="relative z-10 max-w-5xl mx-auto space-y-8 px-4">
                         <motion.div
                             variants={itemVariants}
-                            className="inline-flex items-center space-x-2 bg-orange-500 backdrop-blur-lg rounded-full px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 border border-white/40 shadow-xl mx-auto"
+                            className="inline-flex items-center space-x-3 bg-orange-500 backdrop-blur-lg rounded-full px-8 py-4 border border-white/40 shadow-2xl mx-auto"
                             whileHover={{ scale: 1.05, rotate: 2 }}
                         >
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
                             >
-                                <Plane className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 text-orange-200" />
+                                <UserCheck className="w-6 h-6 text-orange-200" />
                             </motion.div>
-                            <span className="text-orange-100 font-bold text-xs sm:text-sm md:text-base">
-                                Your Adventure Awaits
-                            </span>
+                            <span className="text-orange-100 font-bold text-lg">Your Success Awaits</span>
                         </motion.div>
-
-                        {/* Heading */}
                         <motion.h2
                             variants={itemVariants}
-                            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black leading-tight drop-shadow-2xl"
+                            className="text-4xl sm:text-5xl lg:text-7xl font-black leading-tight drop-shadow-2xl"
                         >
-                            <span className="text-white">Ready to Explore</span>
+                            <span className="text-white">Ready to Succeed</span>
                             <span className="block bg-gradient-to-r from-white via-orange-200 to-yellow-200 bg-clip-text text-transparent">
-                                <TypewriterText text="The World?" className="text-orange-500" />
+                                <TypewriterText text="in Your Interview?" className="text-orange-500" />
                             </span>
                         </motion.h2>
-
-                        {/* Buttons */}
+                        <motion.p
+                            variants={itemVariants}
+                            className="text-xl sm:text-2xl text-gray-100 leading-relaxed max-w-4xl mx-auto drop-shadow-lg"
+                        >
+                            <StaggeredText text="Don’t let nerves hold you back. Start your journey with Settle Nation’s expert interview preparation today." />
+                        </motion.p>
                         <motion.div
                             variants={itemVariants}
-                            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-3 sm:pt-4"
+                            className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
                         >
-                            {/* Button 1 */}
                             <motion.button
-                                className="group bg-gradient-to-r from-orange-600 to-orange-700 text-white px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-xl shadow-xl font-bold text-sm sm:text-base md:text-lg flex items-center space-x-1 sm:space-x-2 relative overflow-hidden"
+                                className="group bg-gradient-to-r from-orange-600 to-orange-700 text-white px-12 py-6 rounded-2xl shadow-2xl font-black text-xl flex items-center space-x-3 relative overflow-hidden"
                                 whileHover={{
                                     scale: 1.05,
-                                    boxShadow: "0 20px 40px rgba(255, 255, 255, 0.2)",
+                                    boxShadow: "0 30px 60px rgba(255, 255, 255, 0.3)",
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => navigate("/contact")}
+                                 onClick={()=>navigate('/contact')}
                             >
                                 <span className="relative z-10">Get Started Now</span>
                                 <motion.div
-                                    animate={{ x: [0, 4, 0] }}
+                                    animate={{ x: [0, 5, 0] }}
                                     transition={{ duration: 2, repeat: Infinity }}
                                     className="relative z-10"
                                 >
-                                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                                    <ArrowRight className="w-6 h-6" />
                                 </motion.div>
                                 <motion.div
                                     className="absolute inset-0 bg-gradient-to-r from-orange-400/0 via-orange-400/20 to-orange-400/0"
@@ -933,128 +780,24 @@ const TouristVisa = () => {
                                     transition={{ duration: 0.6 }}
                                 />
                             </motion.button>
-
-                            {/* Button 2 */}
                             <motion.button
-                                className="border-2 border-white text-white hover:text-orange-200 px-4 py-2 sm:px-6 sm:py-3 md:px-8 md:py-3.5 rounded-xl font-semibold text-sm sm:text-base md:text-lg flex items-center space-x-1 sm:space-x-2 bg-white/10 backdrop-blur-lg shadow-xl relative overflow-hidden"
+                                className="border-3 border-white text-white hover:text-orange-200 px-12 py-6 rounded-2xl font-bold text-xl flex items-center space-x-3 bg-white/10 backdrop-blur-lg shadow-2xl relative overflow-hidden"
                                 whileHover={{
                                     scale: 1.05,
                                     backgroundColor: "rgba(255, 255, 255, 0.2)",
                                 }}
                                 whileTap={{ scale: 0.95 }}
-                                onClick={() => navigate("/contact")}
+                                 onClick={()=>navigate('/contact')}
                             >
-                                <HelpCircle className="w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5" />
+                                <HelpCircle className="w-6 h-6" />
                                 <span>Free Consultation</span>
                             </motion.button>
                         </motion.div>
                     </div>
                 </div>
             </section>
-
-
-            <section className="bg-orange-50 py-20 px-4 sm:px-6 md:px-8">
-                <div className="max-w-6xl mx-auto">
-                    <motion.div
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                        variants={containerVariants}
-                        className="space-y-12 text-center"
-                    >
-                        {/* Heading */}
-                        <motion.h2
-                            variants={itemVariants}
-                            className="text-3xl sm:text-4xl font-extrabold text-gray-900"
-                        >
-                            Countries Offering Tourist Visas
-                        </motion.h2>
-
-                        {/* Intro paragraph */}
-                        <motion.p
-                            variants={itemVariants}
-                            className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto"
-                        >
-                            Several countries welcome travelers with tourist visas, allowing you to
-                            explore breathtaking landscapes, iconic landmarks, and diverse cultures.
-                            Here are some of the most popular destinations loved by global travelers:
-                        </motion.p>
-
-                        {/* Countries Grid */}
-                        <motion.div
-                            variants={containerVariants}
-                            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 mt-12"
-                        >
-                            {[
-                                { country: "USA", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/usa.jpg?updatedAt=1757160698264" },
-                                { country: "Canada", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/canada.jfif?updatedAt=1757160698345" },
-                                { country: "UK", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image.png?updatedAt=1757161515245" },
-                                { country: "Australia", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/australia.jfif?updatedAt=1757160697972" },
-                                { country: "New Zealand", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image(2).png?updatedAt=1757161515211" },
-                                { country: "France", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/french.jfif?updatedAt=1757160697450" },
-                                { country: "Germany", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/germany.jfif?updatedAt=1757160698203" },
-                                { country: "Italy", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/italy.jfif?updatedAt=1757160698383" },
-                                { country: "Japan", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image(1).png?updatedAt=1757161515173" },
-                                { country: "Brazil", flag: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image(3).png?updatedAt=1757161514669" },
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    variants={itemVariants}
-                                    whileHover={{ scale: 1.08, rotate: 1 }}
-                                    transition={{ type: "spring", stiffness: 200, damping: 15 }}
-                                    className="relative rounded-2xl overflow-hidden shadow-md group cursor-pointer border border-gray-200 hover:border-orange-400 hover:shadow-xl"
-                                >
-                                    {/* Image with zoom on hover */}
-                                    <motion.img
-                                        src={item.flag}
-                                        alt={`${item.country} Flag`}
-                                        className="w-full h-32 sm:h-40 object-cover transition-transform duration-500 group-hover:scale-110"
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 0.6, delay: i * 0.1 }}
-                                    />
-
-                                    {/* Gradient Overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-                                    {/* Country Name */}
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 20 }}
-                                        whileHover={{ opacity: 1, y: 0 }}
-                                        transition={{ duration: 0.4 }}
-                                        className="absolute inset-0 flex items-center justify-center"
-                                    >
-                                        <span className="text-white text-lg font-bold drop-shadow-lg tracking-wide">
-                                            {item.country}
-                                        </span>
-                                    </motion.div>
-
-                                    {/* Glow Border */}
-                                    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-orange-400 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.6)] transition-all duration-500"></div>
-                                </motion.div>
-                            ))}
-                        </motion.div>
-
-                        {/* Closing paragraph */}
-                        <motion.p
-                            variants={itemVariants}
-                            className="text-lg sm:text-xl text-gray-700 leading-relaxed max-w-4xl mx-auto mt-10"
-                        >
-                            Whether it's witnessing the Grand Canyon in the USA, strolling through
-                            the romantic streets of France, or enjoying the beaches of Australia,
-                            obtaining a tourist visa is your first step toward unforgettable
-                            adventures. With <span className="font-semibold text-orange-600">SETTLE NATION</span>,
-                            the process becomes simple, secure, and stress-free.
-                        </motion.p>
-                    </motion.div>
-                </div>
-            </section>
-
-
-
         </div>
     );
 };
 
-
-export default TouristVisa;
+export default InterviewPreparation;

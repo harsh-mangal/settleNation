@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GraduationCap, FileText, Users, ClipboardCheck, Globe, Award, Star, ArrowRight, CheckCircle, Phone, Mail, MapPin } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+
 
 const services = [
     {
@@ -155,11 +157,14 @@ const EnhancedImage = ({ src, alt, className = "", children }) => {
 
 const VisaCounseling = () => {
     const [activeService, setActiveService] = useState(0);
+    const navigate = useNavigate();
 
     return (
         <div className="w-full overflow-hidden bg-gradient-to-b from-gray-50 to-white">
             {/* Enhanced Hero Banner */}
-            <div className="relative w-full h-[90vh] text-white overflow-hidden">
+            <div className="relative w-full 
+                h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] 
+                text-white overflow-hidden flex items-center justify-center text-center">
                 <EnhancedImage
                     src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/imge.png?updatedAt=1757152349219"
                     alt="Visa Counseling Banner"
@@ -525,6 +530,7 @@ const VisaCounseling = () => {
                             }}
                             whileTap={{ scale: 0.95 }}
                             transition={{ duration: 0.3 }}
+                            onClick={() => navigate('/contact')}
                         >
                             <Phone className="w-6 h-6 relative z-10 group-hover:animate-bounce" />
                             <span className="relative z-10">Contact Us Now</span>
@@ -544,6 +550,7 @@ const VisaCounseling = () => {
                                 borderColor: "rgba(255, 165, 0, 0.6)"
                             }}
                             whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate('/contact')}
                         >
                             <Mail className="w-6 h-6 relative z-10 group-hover:rotate-12 transition-transform duration-300" />
                             <span className="relative z-10">Free Consultation</span>
@@ -554,62 +561,6 @@ const VisaCounseling = () => {
                                 transition={{ duration: 0.8 }}
                             />
                         </motion.button>
-                    </motion.div>
-
-                    <motion.div
-                        className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto"
-                        initial={{ opacity: 0, y: 50 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.5 }}
-                    >
-                        {[
-                            { icon: Phone, title: "Call Us", info: "+1 (555) 123-4567", color: "from-green-500 to-green-400" },
-                            { icon: Mail, title: "Email Us", info: "info@myvisapoint.com", color: "from-blue-500 to-blue-400" },
-                            { icon: MapPin, title: "Visit Us", info: "123 Visa Street, City", color: "from-purple-500 to-purple-400" }
-                        ].map((contact, idx) => (
-                            <motion.div
-                                key={idx}
-                                className="bg-white/15 backdrop-blur-lg rounded-2xl p-6 border border-white/30 shadow-xl text-center"
-                                whileHover={{
-                                    scale: 1.05,
-                                    backgroundColor: "rgba(255, 255, 255, 0.25)",
-                                    borderColor: "rgba(255, 165, 0, 0.5)"
-                                }}
-                                transition={{ duration: 0.3, delay: idx * 0.1 }}
-                            >
-                                <motion.div
-                                    className={`w-16 h-16 bg-gradient-to-r ${contact.color} rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg`}
-                                    whileHover={{ rotate: 360, scale: 1.1 }}
-                                    transition={{ duration: 0.5 }}
-                                >
-                                    <contact.icon className="w-8 h-8 text-white" />
-                                </motion.div>
-                                <h3 className="text-lg font-bold text-black mb-2">{contact.title}</h3>
-                                <p className="text-black font-medium">{contact.info}</p>
-                            </motion.div>
-                        ))}
-                    </motion.div>
-
-                    <motion.div
-                        className="mt-16 flex flex-wrap justify-center items-center gap-8 opacity-80"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: 0.8 }}
-                    >
-                        <div className="flex items-center space-x-2">
-                            <Award className="w-6 h-6 text-yellow-300" />
-                            <span className="text-white font-semibold">Certified Consultants</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <CheckCircle className="w-6 h-6 text-green-300" />
-                            <span className="text-white font-semibold">Government Approved</span>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                            <Globe className="w-6 h-6 text-blue-300" />
-                            <span className="text-white font-semibold">Global Network</span>
-                        </div>
                     </motion.div>
                 </div>
             </div>

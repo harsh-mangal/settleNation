@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import { GraduationCap, ArrowRight, HelpCircle } from 'lucide-react';
 import { UserCheck, BookOpen, Award, Clock, FileText, Users } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -136,6 +137,7 @@ const IELTSPage = () => {
     const [hoveredCard, setHoveredCard] = useState(null);
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+    const navigate = useNavigate();
 
     const features = [
         {
@@ -233,13 +235,19 @@ const IELTSPage = () => {
     return (
         <div className="w-full bg-gradient-to-br from-gray-50 via-white to-orange-50 overflow-hidden">
             {/* Hero Section with Parallax Effect */}
-            <div className="relative w-full h-[90vh] overflow-hidden">
+            <div className="relative w-full 
+                h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] 
+                text-white overflow-hidden flex items-center justify-center text-center">
+
+                {/* Background Image */}
                 <EnhancedImage
                     src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pte3?updatedAt=1757162471349"
                     alt="IELTS Banner"
                     className="absolute inset-0 w-full h-full object-cover"
                 >
                     <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60"></div>
+
+                    {/* Animated Background Particles */}
                     <div className="absolute inset-0 pointer-events-none">
                         {[...Array(25)].map((_, i) => (
                             <motion.div
@@ -262,38 +270,41 @@ const IELTSPage = () => {
                                     delay: Math.random() * 10,
                                 }}
                             >
-                                <div className="w-4 h-4 bg-gradient-to-r from-orange-400 to-yellow-300 rounded-full blur-sm" />
+                                <div className="w-2 sm:w-3 h-2 sm:h-3 bg-gradient-to-r from-orange-400 to-yellow-300 rounded-full blur-sm" />
                             </motion.div>
                         ))}
                     </div>
                 </EnhancedImage>
 
+                {/* Centered Content */}
                 <div className="absolute inset-0 flex items-center justify-center z-10 px-4 sm:px-6 lg:px-8 text-center">
                     <motion.div
                         initial="hidden"
                         animate="visible"
                         variants={containerVariants}
-                        className="max-w-6xl mx-auto space-y-8"
+                        className="max-w-6xl mx-auto space-y-6 sm:space-y-8"
                     >
+                        {/* Tag */}
                         <motion.div
                             variants={itemVariants}
-                            className="inline-flex items-center space-x-3 bg-gradient-to-r from-orange-500/30 to-orange-400/30 backdrop-blur-lg rounded-full px-8 py-4 border border-white/40 shadow-2xl"
+                            className="inline-flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-500/30 to-orange-400/30 backdrop-blur-lg rounded-full px-4 sm:px-6 py-2 sm:py-3 border border-white/40 shadow-xl"
                             whileHover={{ scale: 1.05, rotate: 1 }}
                         >
                             <motion.div
                                 animate={{ rotate: 360 }}
                                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                             >
-                                <GraduationCap className="w-6 h-6 text-orange-300" />
+                                <GraduationCap className="w-4 sm:w-6 h-4 sm:h-6 text-orange-300" />
                             </motion.div>
-                            <span className="text-orange-200 font-bold text-lg">
+                            <span className="text-sm sm:text-base md:text-lg text-orange-200 font-bold">
                                 IELTS & PTE Coaching
                             </span>
                         </motion.div>
 
+                        {/* Heading */}
                         <motion.h1
                             variants={itemVariants}
-                            className="text-5xl sm:text-6xl lg:text-8xl font-black text-white drop-shadow-2xl leading-tight"
+                            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white drop-shadow-2xl leading-tight"
                         >
                             IELTS & PTE
                             <span className="block bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent">
@@ -301,9 +312,10 @@ const IELTSPage = () => {
                             </span>
                         </motion.h1>
 
+                        {/* Subheading */}
                         <motion.p
                             variants={itemVariants}
-                            className="text-xl sm:text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed"
+                            className="text-sm sm:text-base md:text-lg lg:text-xl text-white/90 max-w-4xl mx-auto leading-relaxed"
                         >
                             Unlock your{" "}
                             <span className="bg-gradient-to-r from-yellow-300 via-orange-400 to-pink-500 bg-clip-text text-transparent font-bold">
@@ -312,17 +324,17 @@ const IELTSPage = () => {
                             with <span className="font-extrabold text-white">Settle Nation</span>
                         </motion.p>
 
+                        {/* Buttons */}
                         <motion.div
                             variants={itemVariants}
-                            className="flex flex-col sm:flex-row gap-6 justify-center items-center pt-8"
+                            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-4 sm:pt-8"
                         >
+                            {/* Primary Button */}
                             <motion.button
-                                className="group bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 text-white px-12 py-5 rounded-2xl shadow-2xl font-black text-lg flex items-center space-x-3 relative overflow-hidden"
-                                whileHover={{
-                                    scale: 1.05,
-                                    boxShadow: "0 25px 50px rgba(255, 165, 0, 0.6)",
-                                }}
+                                className="group bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl shadow-xl font-semibold sm:font-black text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3 relative overflow-hidden"
+                                whileHover={{ scale: 1.05, boxShadow: "0 25px 50px rgba(255, 165, 0, 0.6)" }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => navigate('/contact')}
                             >
                                 <span className="relative z-10">Start Your Journey</span>
                                 <motion.div
@@ -330,25 +342,25 @@ const IELTSPage = () => {
                                     transition={{ duration: 2, repeat: Infinity }}
                                     className="relative z-10"
                                 >
-                                    <ArrowRight className="w-6 h-6" />
+                                    <ArrowRight className="w-4 sm:w-6 h-4 sm:h-6" />
                                 </motion.div>
                             </motion.button>
 
+                            {/* Secondary Button */}
                             <motion.button
-                                className="border-3 border-orange-400 text-orange-300 hover:text-white px-12 py-5 rounded-2xl font-bold text-lg flex items-center space-x-3 bg-white/10 backdrop-blur-lg shadow-xl relative overflow-hidden"
-                                whileHover={{
-                                    scale: 1.05,
-                                    backgroundColor: "rgba(255, 165, 0, 0.2)",
-                                }}
+                                className="border-2 border-orange-400 text-orange-300 hover:text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl font-semibold sm:font-bold text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-lg shadow-lg relative overflow-hidden"
+                                whileHover={{ scale: 1.05, backgroundColor: "rgba(255, 165, 0, 0.2)" }}
                                 whileTap={{ scale: 0.95 }}
+                                onClick={() => navigate('/contact')}
                             >
-                                <HelpCircle className="w-6 h-6" />
+                                <HelpCircle className="w-4 sm:w-6 h-4 sm:h-6" />
                                 <span>Free Consultation</span>
                             </motion.button>
                         </motion.div>
                     </motion.div>
                 </div>
             </div>
+
 
             {/* Intro Section - Updated to Remove Up-and-Down Animation */}
             <section className="relative py-28 px-4 sm:px-6 md:px-8">
@@ -479,7 +491,7 @@ const IELTSPage = () => {
                                     whileHover={{ scale: 1.02 }}
                                     className="group relative bg-gray-100 rounded-3xl overflow-hidden shadow-2xl"
                                 >
-                                   <div className="relative w-full aspect-[16/9] overflow-hidden rounded-t-3xl">
+                                    <div className="relative w-full aspect-[16/9] overflow-hidden rounded-t-3xl">
                                         <motion.img
                                             src={item.img}
                                             alt={`${item.title} Module`}
@@ -603,139 +615,141 @@ const IELTSPage = () => {
             </section>
 
             {/* Enhanced Call to Action */}
-           <section className="relative py-24 px-4 sm:px-6 md:px-8 overflow-hidden">
-  {/* Background Image */}
-  <div
-    className="absolute inset-0 bg-cover bg-center"
-    style={{
-      backgroundImage:
-        "url('https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pte2?updatedAt=1757162471393')",
-    }}
-  />
+            <section className="relative py-16 px-4 sm:px-6 md:px-8 overflow-hidden">
+                {/* Background Image */}
+                <div
+                    className="absolute inset-0 bg-cover bg-center"
+                    style={{
+                        backgroundImage:
+                            "url('https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/pte2?updatedAt=1757162471393')",
+                    }}
+                />
 
-  {/* Light Black Overlay */}
-  <div className="absolute inset-0 bg-black/60" />
+                {/* Light Black Overlay */}
+                <div className="absolute inset-0 bg-black/60" />
 
-  {/* Animated Circles */}
-  <motion.div
-    className="absolute top-0 left-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"
-    animate={{
-      x: [-100, 100, -100],
-      y: [-50, 50, -50],
-      scale: [1, 1.2, 1],
-    }}
-    transition={{ duration: 20, repeat: Infinity }}
-  />
-  <motion.div
-    className="absolute bottom-0 right-0 w-80 h-80 bg-yellow-300/20 rounded-full blur-3xl"
-    animate={{
-      x: [100, -100, 100],
-      y: [50, -50, 50],
-      scale: [1.2, 1, 1.2],
-    }}
-    transition={{ duration: 15, repeat: Infinity }}
-  />
+                {/* Animated Circles */}
+                <motion.div
+                    className="absolute top-0 left-0 w-64 h-64 sm:w-80 sm:h-80 bg-white/10 rounded-full blur-2xl"
+                    animate={{
+                        x: [-80, 80, -80],
+                        y: [-40, 40, -40],
+                        scale: [1, 1.1, 1],
+                    }}
+                    transition={{ duration: 18, repeat: Infinity }}
+                />
+                <motion.div
+                    className="absolute bottom-0 right-0 w-56 h-56 sm:w-64 sm:h-64 bg-yellow-300/20 rounded-full blur-2xl"
+                    animate={{
+                        x: [80, -80, 80],
+                        y: [40, -40, 40],
+                        scale: [1.1, 1, 1.1],
+                    }}
+                    transition={{ duration: 14, repeat: Infinity }}
+                />
 
-  {/* Main Content */}
-  <motion.div
-    initial="hidden"
-    whileInView="visible"
-    viewport={{ once: true }}
-    variants={containerVariants}
-    className="relative max-w-5xl mx-auto text-center space-y-12 text-white"
-  >
-    <motion.div variants={scaleVariants} className="space-y-6">
-      <motion.h2
-        className="text-4xl sm:text-5xl md:text-6xl font-black"
-        animate={{
-          textShadow: [
-            "0 0 20px rgba(255,255,255,0.3)",
-            "0 0 40px rgba(255,255,255,0.5)",
-            "0 0 20px rgba(255,255,255,0.3)",
-          ],
-        }}
-        transition={{ duration: 3, repeat: Infinity }}
-      >
-        <span>Ready to Excel in </span>
-        <span className="text-yellow-300">
-          <TypewriterText text="IELTS or PTE" />
-        </span>
-        <span>?</span>
-      </motion.h2>
-      <motion.div className="w-32 h-1 bg-white/80 mx-auto rounded-full" />
-    </motion.div>
+                {/* Main Content */}
+                <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true }}
+                    variants={containerVariants}
+                    className="relative max-w-4xl mx-auto text-center space-y-8"
+                >
+                    <motion.div variants={scaleVariants} className="space-y-4">
+                        <motion.h2
+                            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black"
+                            animate={{
+                                textShadow: [
+                                    "0 0 15px rgba(255,255,255,0.3)",
+                                    "0 0 30px rgba(255,255,255,0.5)",
+                                    "0 0 15px rgba(255,255,255,0.3)",
+                                ],
+                            }}
+                            transition={{ duration: 3, repeat: Infinity }}
+                        >
+                            <span>Ready to Excel in </span>
+                            <span className="text-yellow-300">
+                                <TypewriterText text="IELTS or PTE" className="text-orange-400" />
+                            </span>
+                            <span>?</span>
+                        </motion.h2>
+                        <motion.div className="w-24 h-1 bg-white/80 mx-auto rounded-full" />
+                    </motion.div>
 
-    <motion.p
-      variants={itemVariants}
-      className="text-xl sm:text-2xl leading-relaxed text-white/95"
-    >
-      <span>Join </span>
-      <span className="font-black text-yellow-200">
-        <TypewriterText text="Settle Nation" />
-      </span>
-      <span> today and take the first step towards your </span>
-      <span className="font-bold text-yellow-300">
-        <TypewriterText text="global success!" />
-      </span>
-    </motion.p>
+                    <motion.p
+                        variants={itemVariants}
+                        className="text-base sm:text-lg md:text-xl leading-relaxed text-white/95"
+                    >
+                        <span>Join </span>
+                        <span className="font-black text-yellow-200">
+                            <TypewriterText text="Settle Nation" className="text-orange-400" />
+                        </span>
+                        <span> today and take the first step towards your </span>
+                        <span className="font-bold text-yellow-300">
+                            <TypewriterText text="global success!" className="text-orange-400" />
+                        </span>
+                    </motion.p>
 
-    <motion.div
-      variants={itemVariants}
-      className="flex flex-col sm:flex-row gap-6 justify-center items-center"
-    >
-      <motion.button
-        whileHover={{
-          scale: 1.1,
-          boxShadow: "0 25px 50px rgba(0,0,0,0.3)",
-        }}
-        whileTap={{ scale: 0.95 }}
-        className="group relative bg-white text-orange-600 px-12 py-5 rounded-full font-black text-xl shadow-2xl transition-all duration-300 overflow-hidden"
-      >
-        <motion.div
-          className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
-        />
-        <span className="relative group-hover:text-white transition-colors duration-300">
-          <span>Enroll Now</span>
-        </span>
-      </motion.button>
+                    <motion.div
+                        variants={itemVariants}
+                        className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+                    >
+                        <motion.button
+                            whileHover={{
+                                scale: 1.1,
+                                boxShadow: "0 20px 40px rgba(0,0,0,0.2)",
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate('/contact')}
+                            className="group relative bg-white text-orange-600 px-8 py-3 sm:px-10 sm:py-4 rounded-full font-black text-base sm:text-lg shadow-xl transition-all duration-300 overflow-hidden"
+                        >
+                            <motion.div
+                                className="absolute inset-0 bg-gradient-to-r from-orange-600 to-orange-700 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"
+                            />
+                            <span className="relative group-hover:text-white transition-colors duration-300">
+                                <span>Enroll Now</span>
+                            </span>
+                        </motion.button>
 
-      <motion.button
-        whileHover={{
-          scale: 1.05,
-          backgroundColor: "rgba(255,255,255,0.2)",
-        }}
-        whileTap={{ scale: 0.95 }}
-        className="border-3 border-white text-white px-12 py-5 rounded-full font-bold text-xl hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
-      >
-        <span>Contact Us</span>
-      </motion.button>
-    </motion.div>
+                        <motion.button
+                            whileHover={{
+                                scale: 1.05,
+                                backgroundColor: "rgba(255,255,255,0.2)",
+                            }}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => navigate('/contact')}
+                            className="border-2 sm:border-3 border-white text-white px-8 py-3 sm:px-10 sm:py-4 rounded-full font-bold text-base sm:text-lg hover:bg-white/10 transition-all duration-300 backdrop-blur-sm"
+                        >
+                            <span>Contact Us</span>
+                        </motion.button>
+                    </motion.div>
 
-    <motion.div
-      variants={containerVariants}
-      className="grid grid-cols-1 sm:grid-cols-3 gap-8 mt-16"
-    >
-      {[
-        { number: "5000+", label: "Students Trained" },
-        { number: "98%", label: "Success Rate" },
-        { number: "50+", label: "Expert Trainers" },
-      ].map((stat, i) => (
-        <motion.div key={i} variants={itemVariants} className="space-y-2">
-          <motion.div
-            className="text-4xl sm:text-5xl font-black text-yellow-300"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
-          >
-            <span>{stat.number}</span>
-          </motion.div>
-          <div className="text-lg text-white/90 font-medium">
-            <span>{stat.label}</span>
-          </div>
-        </motion.div>
-      ))}
-    </motion.div>
-  </motion.div>
-</section>
+                    <motion.div
+                        variants={containerVariants}
+                        className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12"
+                    >
+                        {[
+                            { number: "5000+", label: "Students Trained" },
+                            { number: "98%", label: "Success Rate" },
+                            { number: "50+", label: "Expert Trainers" },
+                        ].map((stat, i) => (
+                            <motion.div key={i} variants={itemVariants} className="space-y-2">
+                                <motion.div
+                                    className="text-2xl sm:text-3xl md:text-4xl font-black text-yellow-300"
+                                    animate={{ scale: [1, 1.05, 1] }}
+                                    transition={{ duration: 2, repeat: Infinity, delay: i * 0.2 }}
+                                >
+                                    <span className="text-orange-400">{stat.number}</span>
+                                </motion.div>
+                                <div className="text-sm sm:text-base md:text-lg text-white/90 font-medium">
+                                    <span>{stat.label}</span>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </motion.div>
+            </section>
 
         </div>
     );
