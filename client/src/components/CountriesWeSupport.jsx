@@ -1,6 +1,21 @@
-// CountriesWeSupport.jsx
 import React from "react";
+import { motion } from "framer-motion"; // Import Framer Motion
 import { ArrowRight } from "lucide-react";
+
+
+// Animation Variants (aligned with StudyVisa)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
 
 const countries = [
   {
@@ -42,51 +57,63 @@ const countries = [
 
 export default function CountriesWeSupport() {
   return (
-    <section className="w-full py-12 sm:py-16 lg:py-20 bg-gradient-to-b from-[#f4f1ff] to-orange-50">
+    <motion.section
+      className="w-full py-12 sm:py-16 lg:py-20 bg-gray-50 dark:bg-gray-900"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-8 sm:mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
+        <motion.div className="text-center mb-8 sm:mb-10" variants={itemVariants}>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             Countries We Support
           </h2>
-          <p className="mt-3 text-gray-600">
+          <p className="mt-3 text-gray-600 dark:text-gray-300">
             Explore top destinations where we offer end-to-end visa assistance.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Gallery row */}
-        <div className="hidden md:flex gap-4">
+        {/* Gallery row (Desktop) */}
+        <motion.div
+          className="hidden md:flex gap-4"
+          variants={containerVariants}
+        >
           {countries.map((c, i) => (
-            <a
+            <motion.a
               key={i}
               href={c.href}
               className="
                 group relative overflow-hidden rounded-3xl
                 basis-[22%] hover:basis-[48%]
                 transition-all duration-500 ease-out
-                border border-[#e8e3ff] shadow-sm hover:shadow-xl
+                border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-xl
                 flex
               "
               style={{ minHeight: 320 }}
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
             >
               {/* Background image */}
               <img
-                src={c.img}
+                src={c.img || "https://via.placeholder.com/1400x900"}
                 alt={c.name}
                 className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-700"
                 loading="lazy"
                 decoding="async"
               />
 
-              {/* Lavender / orange wash for readability */}
-              <div className="absolute inset-0 bg-[rgba(244,241,255,0.65)] group-hover:bg-[rgba(255,237,213,0.45)] transition-colors duration-500" />
+              {/* Gradient wash for readability */}
+              <div className="absolute inset-0 bg-[rgba(244,241,255,0.65)] dark:bg-[rgba(55,65,81,0.65)] group-hover:bg-[rgba(255,237,213,0.45)] dark:group-hover:bg-[rgba(255,237,213,0.35)] transition-colors duration-500" />
 
               {/* Content */}
               <div className="relative z-10 p-6 sm:p-7 md:p-8 flex flex-col justify-end w-full">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 drop-shadow">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white drop-shadow">
                     {c.name}
                   </h3>
-                  <ArrowRight className="h-5 w-5 text-orange-500 opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition" />
+                  <ArrowRight className="h-5 w-5 text-orange-500 dark:text-orange-400 opacity-0 translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition" />
                 </div>
 
                 {/* About block — hidden until hover, then expands */}
@@ -97,29 +124,34 @@ export default function CountriesWeSupport() {
                     transition-all duration-500 ease-out
                   "
                 >
-                  <p className="text-sm sm:text-base text-gray-700 bg-white/70 backdrop-blur rounded-2xl p-4 border border-white/60 shadow">
+                  <p className="text-sm sm:text-base text-gray-700 dark:text-gray-200 bg-white/70 dark:bg-gray-800/70 backdrop-blur rounded-2xl p-4 border border-white/60 dark:border-gray-600/60 shadow">
                     {c.about}
                   </p>
                 </div>
               </div>
 
               {/* Soft bottom gradient to enhance legibility */}
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/70 via-white/20 to-transparent" />
-            </a>
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-white/70 dark:from-gray-900/70 via-white/20 dark:via-gray-900/20 to-transparent" />
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
 
-        {/* Mobile: stacked cards (no width expand; simple reveal on tap/hover) */}
-        <div className="md:hidden grid grid-cols-1 gap-4">
+        {/* Mobile: stacked cards */}
+        <motion.div
+          className="md:hidden grid grid-cols-1 gap-4"
+          variants={containerVariants}
+        >
           {countries.map((c, i) => (
-            <a
+            <motion.a
               key={i}
               href={c.href}
-              className="relative overflow-hidden rounded-3xl border border-[#e8e3ff] bg-white shadow-sm"
+              className="relative overflow-hidden rounded-3xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
             >
               <div className="aspect-[16/9]">
                 <img
-                  src={c.img}
+                  src={c.img || "https://via.placeholder.com/1400x900"}
                   alt={c.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -128,15 +160,17 @@ export default function CountriesWeSupport() {
               </div>
               <div className="p-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900">{c.name}</h3>
-                  <ArrowRight className="h-5 w-5 text-orange-500" />
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    {c.name}
+                  </h3>
+                  <ArrowRight className="h-5 w-5 text-orange-500 dark:text-orange-400" />
                 </div>
-                <p className="mt-2 text-gray-600">{c.about}</p>
+                <p className="mt-2 text-gray-600 dark:text-gray-300">{c.about}</p>
               </div>
-            </a>
+            </motion.a>
           ))}
-        </div>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }

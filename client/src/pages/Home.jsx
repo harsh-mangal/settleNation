@@ -6,7 +6,7 @@ import CountriesWeSupport from '../components/CountriesWeSupport'
 
 const Home = () => {
   return (
-    <div>
+    <div className=' dark:bg-gray-900 text-gray-800 dark:text-gray-200'>
       <HeroCarousel/>
       <WorkProgress/>
       <WhyChooseUs/>

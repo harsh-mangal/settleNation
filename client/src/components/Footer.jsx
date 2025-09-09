@@ -11,9 +11,23 @@ import {
   Check,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion"; // Import Framer Motion
 
+// Animation Variants (aligned with StudyVisa)
+const containerVariants = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
+  },
+};
 
-const Footer = ({ mapImageSrc }) => {
+const itemVariants = {
+  hidden: { opacity: 0, y: 50 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+const Footer = ({ mapImageSrc, darkMode }) => {
   const [email, setEmail] = useState("");
 
   const handleSubscribe = (e) => {
@@ -32,14 +46,23 @@ const Footer = ({ mapImageSrc }) => {
   ];
 
   return (
-    <footer className="relative bg-[#6A6593] text-white overflow-hidden">
+    <motion.footer
+      className="relative bg-[#6A6593] dark:bg-gray-800 text-white dark:text-gray-100 overflow-hidden"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true }}
+      variants={containerVariants}
+    >
+
       {/* Transparent Map Background */}
       {mapImageSrc && (
-        <div className="absolute inset-0 ">
+        <div className="absolute inset-0 opacity-20 dark:opacity-10">
           <img
-            src="https://pngimg.com/d/world_map_PNG28.png"
+            src={mapImageSrc || "https://pngimg.com/d/world_map_PNG28.png"}
             alt="World Map"
             className="w-full h-full object-cover object-center"
+            loading="lazy"
+            decoding="async"
           />
         </div>
       )}
@@ -47,52 +70,74 @@ const Footer = ({ mapImageSrc }) => {
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 pt-16">
         {/* Top Section with center divider */}
-        <div className="relative mb-16">
+        <motion.div className="relative mb-16" variants={containerVariants}>
           {/* Vertical center line for md+ */}
-          <div className="pointer-events-none hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/20"></div>
+          <div className="pointer-events-none hidden md:block absolute left-1/2 top-0 bottom-0 w-px bg-white/20 dark:bg-gray-700/20"></div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Support Box */}
-            <div className="relative z-10 bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+            <motion.div
+              className="relative z-10 bg-white/5 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-white/10 dark:border-gray-700/30 hover:bg-white/10 dark:hover:bg-gray-800/70 transition-all duration-300 group"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
-                  <HeadphonesIcon className="w-6 h-6 text-orange-400" />
+                <div className="w-12 h-12 bg-orange-500/20 dark:bg-orange-900/30 rounded-full flex items-center justify-center group-hover:bg-orange-500/30 dark:group-hover:bg-orange-900/50 transition-colors">
+                  <HeadphonesIcon className="w-6 h-6 text-orange-400 dark:text-orange-300" />
                 </div>
-                <h3 className="text-xl font-medium text-white group-hover:text-orange-200 transition-colors">
+                <h3 className="text-xl font-medium text-white dark:text-gray-100 group-hover:text-orange-200 dark:group-hover:text-orange-300 transition-colors">
                   Need any support for tour and visa?
                 </h3>
               </div>
-            </div>
+            </motion.div>
 
-            {/* mobile-only divider between the two cards */}
-            <div className="md:hidden h-px bg-white/20 rounded my-1"></div>
+            {/* Mobile-only divider between the two cards */}
+            <div className="md:hidden h-px bg-white/20 dark:bg-gray-700/20 rounded my-1"></div>
 
             {/* Travel Box */}
-            <div className="relative z-10 bg-white/5 backdrop-blur-sm rounded-xl p-8 border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+            <motion.div
+              className="relative z-10 bg-white/5 dark:bg-gray-800/50 backdrop-blur-sm rounded-xl p-8 border border-white/10 dark:border-gray-700/30 hover:bg-white/10 dark:hover:bg-gray-800/70 transition-all duration-300 group"
+              variants={itemVariants}
+              whileHover={{ scale: 1.02 }}
+            >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-orange-500/20 rounded-full flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
-                  <PlaneTakeoff className="w-6 h-6 text-orange-400" />
+                <div className="w-12 h-12 bg-orange-500/20 dark:bg-orange-900/30 rounded-full flex items-center justify-center group-hover:bg-orange-500/30 dark:group-hover:bg-orange-900/50 transition-colors">
+                  <PlaneTakeoff className="w-6 h-6 text-orange-400 dark:text-orange-300" />
                 </div>
-                <h3 className="text-xl font-medium text-white group-hover:text-orange-200 transition-colors">
+                <h3 className="text-xl font-medium text-white dark:text-gray-100 group-hover:text-orange-200 dark:group-hover:text-orange-300 transition-colors">
                   Are you ready to get started travelling?
                 </h3>
               </div>
-            </div>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Bottom Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-white/10">
+        <motion.div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pb-12 border-b border-white/10 dark:border-gray-700/30"
+          variants={containerVariants}
+        >
           {/* About Section */}
-          <div className="space-y-6">
+          <motion.div className="space-y-6" variants={itemVariants}>
             <div className="flex items-center gap-2">
               <img
                 src="https://ik.imagekit.io/devhm/aae3cad6f319122b9a943ce0c35cb2ce71e703bc%20(1).png?updatedAt=1756022369414"
-                alt="Logo"
-                className="h-16 w-auto"
+                alt="Settle Nation Logo Light"
+                className="h-16 w-auto dark:hidden transition-all duration-200"
+                loading="lazy"
+                decoding="async"
+              />
+
+              {/* Dark Logo */}
+              <img
+                src="https://ik.imagekit.io/rasoipro212/Settle%20Nation%20/Settle-Nation-Final-logo-White-Text-.png?updatedAt=1756357426768"
+                alt="Settle Nation Logo Dark"
+                className="h-12 w-auto hidden dark:block transition-all duration-200"
+                loading="lazy"
+                decoding="async"
               />
             </div>
-            <p className="text-gray-300 text-sm leading-relaxed">
+            <p className="text-gray-300 dark:text-gray-300 text-sm leading-relaxed">
               Your trusted travel companion for unforgettable journeys around
               the world. Discover amazing destinations with expert guidance and
               personalized service.
@@ -102,58 +147,64 @@ const Footer = ({ mapImageSrc }) => {
             <div className="flex gap-3">
               <a
                 href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 hover:scale-105 transition-all duration-300"
+                className="w-10 h-10 bg-white/10 dark:bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-600 hover:scale-105 transition-all duration-300"
                 aria-label="Facebook"
               >
-                <Facebook className="w-5 h-5" />
+                <Facebook className="w-5 h-5 text-white dark:text-gray-100" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 hover:scale-105 transition-all duration-300"
+                className="w-10 h-10 bg-white/10 dark:bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-600 hover:scale-105 transition-all duration-300"
                 aria-label="Twitter"
               >
-                <Twitter className="w-5 h-5" />
+                <Twitter className="w-5 h-5 text-white dark:text-gray-100" />
               </a>
               <a
                 href="https://www.instagram.com/settle_nation/"
-                 target="_blank"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 hover:scale-105 transition-all duration-300"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 bg-white/10 dark:bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-600 hover:scale-105 transition-all duration-300"
                 aria-label="Instagram"
               >
-                <Instagram className="w-5 h-5" />
+                <Instagram className="w-5 h-5 text-white dark:text-gray-100" />
               </a>
               <a
                 href="#"
-                className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 hover:scale-105 transition-all duration-300"
+                className="w-10 h-10 bg-white/10 dark:bg-gray-800/50 rounded-full flex items-center justify-center hover:bg-orange-500 dark:hover:bg-orange-600 hover:scale-105 transition-all duration-300"
                 aria-label="LinkedIn"
               >
-                <Linkedin className="w-5 h-5" />
+                <Linkedin className="w-5 h-5 text-white dark:text-gray-100" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Services Section */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-white">Services</h3>
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <h3 className="text-lg font-semibold text-white dark:text-gray-100">
+              Services
+            </h3>
             <ul className="space-y-3">
               {serviceItems.map(({ to, label }) => (
-                <li key={label}>
+                <motion.li key={label} variants={itemVariants}>
                   <Link
                     to={to}
-                    className="group flex items-center text-gray-300 hover:text-white transition-all duration-200 text-sm"
+                    className="group flex items-center text-gray-300 dark:text-gray-300 hover:text-white dark:hover:text-gray-100 transition-all duration-200 text-sm"
                   >
-                    <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 opacity-90 group-hover:translate-x-0.5 transition-transform" />
+                    <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 dark:text-orange-400 opacity-90 group-hover:translate-x-0.5 transition-transform" />
                     <span className="group-hover:translate-x-0.5 transition-transform">
                       {label}
                     </span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
+
           {/* Useful Links Section */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-white">Useful Links</h3>
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <h3 className="text-lg font-semibold text-white dark:text-gray-100">
+              Useful Links
+            </h3>
             <ul className="space-y-3">
               {[
                 { label: "About Us", to: "/about" },
@@ -163,68 +214,75 @@ const Footer = ({ mapImageSrc }) => {
                 { label: "Support", to: "/contact" },
                 { label: "Blog", to: "/articlesBlogs" },
               ].map(({ label, to }) => (
-                <li key={label}>
+                <motion.li key={label} variants={itemVariants}>
                   <Link
                     to={to}
-                    className="group flex items-center text-gray-300 hover:text-white transition-all duration-200 text-sm"
+                    className="group flex items-center text-gray-300 dark:text-gray-300 hover:text-white dark:hover:text-gray-100 transition-all duration-200 text-sm"
                   >
-                    <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 opacity-90 group-hover:translate-x-0.5 transition-transform" />
+                    <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 dark:text-orange-400 opacity-90 group-hover:translate-x-0.5 transition-transform" />
                     <span className="group-hover:translate-x-0.5 transition-transform">
                       {label}
                     </span>
                   </Link>
-                </li>
+                </motion.li>
               ))}
             </ul>
-          </div>
+          </motion.div>
 
           {/* Newsletter Section */}
-          <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-white">Newsletter</h3>
-            <p className="text-gray-300 text-sm leading-relaxed">
+          <motion.div className="space-y-6" variants={itemVariants}>
+            <h3 className="text-lg font-semibold text-white dark:text-gray-100">
+              Newsletter
+            </h3>
+            <p className="text-gray-300 dark:text-gray-300 text-sm leading-relaxed">
               Stay updated with our latest travel deals and destinations.
             </p>
             <form onSubmit={handleSubscribe} className="space-y-4">
               <div className="relative">
-                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-gray-500" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full pl-10 pr-4 py-3 bg-white/10 border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent placeholder-gray-400 text-white text-sm"
+                  className="w-full pl-10 pr-4 py-3 bg-white/10 dark:bg-gray-800/50 border border-white/20 dark:border-gray-700/30 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-400 dark:focus:ring-orange-300 focus:border-transparent placeholder-gray-400 dark:placeholder-gray-500 text-white dark:text-gray-100 text-sm"
                   required
                 />
               </div>
-              <button
+              <motion.button
                 type="submit"
-                className="w-full bg-orange-500 hover:bg-orange-600 text-white px-4 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2 group"
+                className="w-full bg-orange-500 dark:bg-orange-600 hover:bg-orange-600 dark:hover:bg-orange-700 text-white dark:text-gray-100 px-4 py-3 rounded-lg font-medium transition-all duration-200 hover:shadow-lg flex items-center justify-center gap-2 group"
+                whileHover={{ scale: 1.05 }}
               >
                 Subscribe
                 <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </button>
+              </motion.button>
             </form>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Copyright Section */}
-        <div className="py-8 flex flex-row justify-between text-center">
-          <p className="text-gray-300 text-sm">
-            © {new Date().getFullYear()} Travel Agency. All rights reserved.
+        <motion.div
+          className="py-8 flex flex-col md:flex-row justify-between text-center gap-4"
+          variants={itemVariants}
+        >
+          <p className="text-gray-300 dark:text-gray-300 text-sm">
+            © {new Date().getFullYear()} Settle Nation. All rights reserved.
           </p>
-          <p className="text-xs tracking-wide text-gray-300">
+          <p className="text-xs tracking-wide text-gray-300 dark:text-gray-300">
             Developed by{" "}
-            <span className="font-semibold text-orange-400">
-              <a href="https://www.dodunsoftsolutions.com/">  Dodun Soft Solutions</a>
-
-            </span>
+            <a
+              href="https://www.dodunsoftsolutions.com/"
+              className="font-semibold text-orange-400 dark:text-orange-300 hover:underline"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Dodun Soft Solutions
+            </a>
           </p>
-        </div>
-
-        {/* Bottom divider + Dev credit */}
-
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
 

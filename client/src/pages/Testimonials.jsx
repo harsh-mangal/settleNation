@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Star, ArrowRight, X, ChevronLeft, ChevronRight } from "lucide-react";
 
-// Animation Variants
+
+// Animation Variants (unchanged)
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -21,20 +22,25 @@ const itemVariants = {
   },
 };
 
+// StarRating Component (updated for dark mode)
 const StarRating = ({ rating }) => {
   return (
     <div className="flex space-x-1">
       {[...Array(5)].map((_, i) => (
         <Star
           key={i}
-          className={`w-5 h-5 ${i < rating ? "text-yellow-400 fill-current" : "text-gray-300"}`}
+          className={`w-5 h-5 ${
+            i < rating
+              ? "text-yellow-400 dark:text-yellow-300 fill-current"
+              : "text-gray-300 dark:text-gray-500"
+          }`}
         />
       ))}
     </div>
   );
 };
 
-// Typewriter Effect
+// Typewriter Effect (updated for dark mode)
 const TypewriterText = ({ text, className = "" }) => (
   <motion.span
     initial={{ width: 0 }}
@@ -46,7 +52,7 @@ const TypewriterText = ({ text, className = "" }) => (
   </motion.span>
 );
 
-// Staggered Text Animation
+// Staggered Text Animation (updated for dark mode)
 const StaggeredText = ({ text = "", className = "" }) => {
   const words = text.split(" ");
   return (
@@ -82,7 +88,7 @@ const StaggeredText = ({ text = "", className = "" }) => {
   );
 };
 
-// Enhanced Image Component
+// Enhanced Image Component (updated for dark mode)
 const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) => {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -105,14 +111,14 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
       />
       {overlay && (
         <motion.div
-          className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"
+          className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent dark:from-black/80 dark:via-black/50 dark:to-transparent"
           initial={{ opacity: 0 }}
           animate={{ opacity: isHovered ? 1 : 0.3 }}
           transition={{ duration: 0.4 }}
         />
       )}
       <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full"
+        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 dark:via-white/10 to-transparent -translate-x-full"
         animate={{ translateX: isHovered ? "200%" : "-100%" }}
         transition={{ duration: 1, ease: "easeInOut" }}
       />
@@ -122,7 +128,7 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
-                className="absolute w-2 h-2 bg-orange-400 rounded-full"
+                className="absolute w-2 h-2 bg-orange-400 dark:bg-orange-300 rounded-full"
                 style={{
                   left: `${20 + i * 10}%`,
                   top: `${30 + i * 5}%`,
@@ -148,24 +154,24 @@ const EnhancedImage = ({ src, alt, className = "", children, overlay = true }) =
   );
 };
 
-
+// TestimonialCard Component (updated for dark mode)
 const TestimonialCard = ({ testimonial, onCardClick }) => {
   return (
     <motion.div
       className={`
         group relative overflow-hidden rounded-3xl
         flex-shrink-0 basis-[22%]
-        border border-[#e8e3ff] shadow-sm
+        border border-gray-200 dark:border-gray-700 shadow-sm
         flex flex-col items-center justify-center text-center
         cursor-pointer
       `}
-      style={{ minHeight: 320, backgroundColor: '#e6f0fa' }}
+      style={{ minHeight: 320, backgroundColor: '#e6f0fa dark:bg-gray-800' }}
       onClick={() => onCardClick(testimonial)}
     >
       {/* Circular background image */}
       <div className="w-40 h-40 rounded-full overflow-hidden mb-4 mt-2">
         <img
-          src={testimonial.image || "https://via.placeholder.com/400x400"} // Replace with actual image URL
+          src={testimonial.image || "https://via.placeholder.com/400x400"}
           alt={testimonial.name || "Anonymous"}
           className="w-full h-full object-cover"
         />
@@ -174,64 +180,62 @@ const TestimonialCard = ({ testimonial, onCardClick }) => {
       {/* Content */}
       <div className="relative z-10 p-6 flex flex-col items-center">
         <div className="flex flex-col space-y-2">
-          <p className="text-base sm:text-lg text-gray-800 leading-relaxed line-clamp-2">
+          <p className="text-base sm:text-lg text-gray-800 dark:text-gray-200 leading-relaxed line-clamp-2">
             {testimonial.message || "No message provided."}
           </p>
-          <h3 className="text-lg sm:text-xl font-bold text-gray-900 drop-shadow mt-2">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white drop-shadow mt-2">
             {testimonial.name || "Anonymous"}
           </h3>
           <div className="flex justify-center mt-2 mb-2">
             <StarRating rating={testimonial.rating || 0} />
           </div>
-
-          <p className="text-sm text-gray-600 italic">— Client</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 italic">— Client</p>
         </div>
       </div>
     </motion.div>
   );
 };
 
+// FeedbackModal Component (updated for dark mode)
 const FeedbackModal = ({ isOpen, onClose, testimonial }) => {
   if (!isOpen || !testimonial) return null;
 
   return (
     <motion.div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black/50 dark:bg-black/70 flex items-center justify-center z-50 p-4"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
       <motion.div
-        className="bg-white rounded-3xl p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto relative"
+        className="bg-white dark:bg-gray-800 rounded-3xl p-8 w-full max-w-lg max-h-[90vh] overflow-y-auto relative border border-gray-200 dark:border-gray-700"
         initial={{ scale: 0.8, y: 50 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.8, y: 50 }}
         transition={{ duration: 0.4 }}
       >
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-orange-600"
+          className="absolute top-4 right-4 text-gray-600 dark:text-gray-300 hover:text-orange-600 dark:hover:text-orange-400"
           onClick={onClose}
         >
           <X className="w-6 h-6" />
         </button>
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">Testimonial Details</h2>
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Testimonial Details</h2>
         <div className="space-y-4">
           <img
             src={testimonial.image || "https://via.placeholder.com/400x400"}
             alt={testimonial.name || "Anonymous"}
             className="w-40 h-40 rounded-full mx-auto object-cover mb-4"
           />
-          <p className="text-base text-gray-800">{testimonial.message}</p>
-          <h3 className="text-xl font-bold text-gray-900 mt-4">{testimonial.name}</h3>
+          <p className="text-base text-gray-800 dark:text-gray-200">{testimonial.message}</p>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mt-4">{testimonial.name}</h3>
           <StarRating rating={testimonial.rating || 0} />
-          <p className="text-sm text-gray-600 italic">— Client</p>
+          <p className="text-sm text-gray-600 dark:text-gray-400 italic">— Client</p>
         </div>
       </motion.div>
     </motion.div>
   );
 };
-
-
 
 const Testimonials = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -255,7 +259,6 @@ const Testimonials = () => {
 
         setOriginalTestimonials(approvedTestimonials);
         setTestimonials([...approvedTestimonials]);
-
       } catch (err) {
         setError(err.message);
       } finally {
@@ -265,7 +268,6 @@ const Testimonials = () => {
 
     fetchTestimonials();
   }, []);
-
 
   // Auto-scroll effect (right to left)
   useEffect(() => {
@@ -286,12 +288,10 @@ const Testimonials = () => {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-
-
   if (loading) {
     return (
       <motion.div
-        className="text-center py-12 sm:py-16 md:py-20 text-gray-600"
+        className="text-center py-12 sm:py-16 md:py-20 text-gray-600 dark:text-gray-300"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -304,7 +304,7 @@ const Testimonials = () => {
   if (error) {
     return (
       <motion.div
-        className="text-center py-12 sm:py-16 md:py-20 text-red-600"
+        className="text-center py-12 sm:py-16 md:py-20 text-red-600 dark:text-red-400"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -315,19 +315,17 @@ const Testimonials = () => {
   }
 
   return (
-    <section className="relative w-full bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-      {/* Full-Width Banner with Text Overlay */}
-      <div className="relative w-full 
-                h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[100vh] 
-                text-white overflow-hidden flex items-center justify-center text-center">
+    <section className="relative w-full bg-gray-50 dark:bg-gray-900 overflow-hidden">
 
+      {/* Full-Width Banner with Text Overlay */}
+      <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[100vh] text-white overflow-hidden flex items-center justify-center text-center">
         {/* Background Image */}
         <EnhancedImage
           src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/testimonial?updatedAt=1757315575304"
           alt="Testimonials Banner"
           className="absolute inset-0 w-full h-full object-cover"
         >
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/60 dark:from-black/80 dark:via-black/60 dark:to-black/70"></div>
 
           {/* Animated Floating Particles */}
           <div className="absolute inset-0 pointer-events-none">
@@ -352,7 +350,7 @@ const Testimonials = () => {
                   delay: Math.random() * 10,
                 }}
               >
-                <div className="w-3 sm:w-4 h-3 sm:h-4 bg-gradient-to-r from-orange-400 to-yellow-300 rounded-full blur-sm" />
+                <div className="w-3 sm:w-4 h-3 sm:h-4 bg-gradient-to-r from-orange-400 to-yellow-300 dark:from-orange-500 dark:to-yellow-400 rounded-full blur-sm" />
               </motion.div>
             ))}
           </div>
@@ -369,25 +367,25 @@ const Testimonials = () => {
             {/* Tag / Label */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-500/30 to-orange-400/30 backdrop-blur-lg rounded-full px-6 sm:px-8 py-2 sm:py-4 border border-white/40 shadow-2xl"
+              className="inline-flex items-center space-x-2.5 sm:space-x-3 bg-gradient-to-r from-orange-500/30 to-orange-400/30 dark:from-orange-600/20 dark:to-orange-500/20 backdrop-blur-lg rounded-full px-6 sm:px-8 py-2 sm:py-4 border border-white/40 dark:border-white/20 shadow-2xl"
               whileHover={{ scale: 1.05, rotate: 1 }}
             >
               <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               >
-                <Star className="w-5 sm:w-6 h-5 sm:h-6 text-orange-300" />
+                <Star className="w-5 sm:w-6 h-5 sm:h-6 text-orange-300 dark:text-orange-200" />
               </motion.div>
-              <span className="text-sm sm:text-lg text-orange-200 font-bold">Client Stories</span>
+              <span className="text-sm sm:text-lg text-orange-200 dark:text-orange-100 font-bold">Client Stories</span>
             </motion.div>
 
             {/* Heading */}
             <motion.h2
               variants={itemVariants}
-              className="text-3xl sm:text-5xl lg:text-7xl font-black text-white drop-shadow-2xl leading-tight"
+              className="text-3xl sm:text-5xl lg:text-7xl font-black text-white dark:text-gray-100 drop-shadow-2xl leading-tight"
             >
               Our
-              <span className="block bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 bg-clip-text text-transparent">
+              <span className="block bg-gradient-to-r from-orange-400 via-yellow-300 to-orange-500 dark:from-orange-500 dark:via-yellow-400 dark:to-orange-600 bg-clip-text text-transparent">
                 <TypewriterText text="Testimonials" />
               </span>
             </motion.h2>
@@ -395,7 +393,7 @@ const Testimonials = () => {
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 leading-relaxed max-w-4xl mx-auto drop-shadow-lg"
+              className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 dark:text-gray-200 leading-relaxed max-w-4xl mx-auto drop-shadow-lg"
             >
               <StaggeredText text="Hear from our clients who have successfully embarked on their journeys with Settle Nation's expert guidance." />
             </motion.p>
@@ -403,13 +401,12 @@ const Testimonials = () => {
         </div>
       </div>
 
-
       {/* Testimonials Carousel and Feedback Button */}
-      <section className="bg-gradient-to-br from-orange-50 via-orange-25 to-gray-50 py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-orange-50 via-orange-25 to-gray-50 dark:from-orange-900/30 dark:via-gray-900 dark:to-orange-900/30 py-24 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
         <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-10 left-10 w-96 h-96 bg-orange-400 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-yellow-400 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-red-400 rounded-full blur-2xl"></div>
+          <div className="absolute top-10 left-10 w-96 h-96 bg-orange-400 dark:bg-orange-600 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-10 right-10 w-80 h-80 bg-yellow-400 dark:bg-yellow-500 rounded-full blur-3xl"></div>
+          <div className="absolute top-1/2 left-1/4 w-64 h-64 bg-red-400 dark:bg-red-600 rounded-full blur-2xl"></div>
         </div>
 
         <div className="relative z-10">
@@ -422,14 +419,14 @@ const Testimonials = () => {
           >
             {/* Testimonials Carousel */}
             {originalTestimonials.length === 0 ? (
-              <motion.div className="text-center text-gray-600 text-lg" variants={itemVariants}>
+              <motion.div className="text-center text-gray-600 dark:text-gray-300 text-lg" variants={itemVariants}>
                 No approved testimonials available at the moment.
               </motion.div>
             ) : (
               <section className="py-4 relative">
                 {/* Heading */}
                 <motion.h2
-                  className="text-2xl sm:text-3xl md:text-4xl font-black text-center mb-6 sm:mb-8 md:mb-12 bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent"
+                  className="text-2xl sm:text-3xl md:text-4xl font-black text-center mb-6 sm:mb-8 md:mb-12 bg-gradient-to-r from-orange-600 to-orange-400 dark:from-orange-700 dark:to-orange-500 bg-clip-text text-transparent"
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
@@ -461,13 +458,15 @@ const Testimonials = () => {
                         <TestimonialCard
                           testimonial={testimonial}
                           index={idx % originalTestimonials.length}
-                          onCardClick={(t) => setSelectedTestimonial(t)}
+                          onCardClick={(t) => {
+                            setSelectedTestimonial(t);
+                            setIsModalOpen(true);
+                          }}
                         />
                       </div>
                     ))}
                   </motion.div>
                 </div>
-
               </section>
             )}
           </motion.div>
@@ -475,11 +474,13 @@ const Testimonials = () => {
       </section>
 
       <FeedbackModal
-        isOpen={!!selectedTestimonial}
-        onClose={() => setSelectedTestimonial(null)}
+        isOpen={isModalOpen}
+        onClose={() => {
+          setSelectedTestimonial(null);
+          setIsModalOpen(false);
+        }}
         testimonial={selectedTestimonial}
       />
-
     </section>
   );
 };

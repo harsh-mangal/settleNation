@@ -25,6 +25,7 @@ import {
     Check
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import ThemeToggle from "../components/TheameToggle"; // Import ThemeToggle
 
 const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
     const [count, setCount] = useState(0);
@@ -36,12 +37,8 @@ const AnimatedCounter = ({ end, duration = 2000, suffix = "" }) => {
         const animate = (currentTime) => {
             if (!startTime) startTime = currentTime;
             const progress = Math.min((currentTime - startTime) / duration, 1);
-
             setCount(Math.floor(progress * end));
-
-            if (progress < 1) {
-                animationFrame = requestAnimationFrame(animate);
-            }
+            if (progress < 1) animationFrame = requestAnimationFrame(animate);
         };
 
         animationFrame = requestAnimationFrame(animate);
@@ -61,8 +58,7 @@ const FloatingCard = ({ children, delay = 0 }) => {
     }, [delay]);
 
     return (
-        <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-            }`}>
+        <div className={`transform transition-all duration-1000 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
             {children}
         </div>
     );
@@ -85,24 +81,24 @@ const SuperVisa = () => {
             title: "Extended Stay Duration",
             description: "Stay in Canada for up to 2 years without renewal",
             features: ["Up to 2 years per visit", "No frequent renewals needed", "More quality time with family"],
-            color: "from-blue-500 to-cyan-400",
-            bgColor: "bg-gradient-to-br from-blue-50 to-cyan-50"
+            color: "from-blue-500 to-cyan-400 dark:from-blue-700 dark:to-cyan-600",
+            bgColor: "bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-800/30"
         },
         {
             icon: RefreshCw,
             title: "Multiple Entry Privilege",
             description: "Valid for up to 10 years with unlimited entries",
             features: ["10-year validity", "Multiple entries allowed", "Flexible travel plans"],
-            color: "from-emerald-500 to-green-400",
-            bgColor: "bg-gradient-to-br from-emerald-50 to-green-50"
+            color: "from-emerald-500 to-green-400 dark:from-emerald-700 dark:to-green-600",
+            bgColor: "bg-gradient-to-br from-emerald-50 to-green-50 dark:from-emerald-900/30 dark:to-green-800/30"
         },
         {
             icon: Zap,
             title: "Faster Processing",
             description: "Quicker than regular visitor visas for family reunification",
             features: ["Priority processing", "Faster approval times", "Quick family reunification"],
-            color: "from-purple-500 to-violet-400",
-            bgColor: "bg-gradient-to-br from-purple-50 to-violet-50"
+            color: "from-purple-500 to-violet-400 dark:from-purple-700 dark:to-violet-600",
+            bgColor: "bg-gradient-to-br from-purple-50 to-violet-50 dark:from-purple-900/30 dark:to-violet-800/30"
         }
     ];
 
@@ -112,7 +108,7 @@ const SuperVisa = () => {
             title: "Eligibility Assessment",
             description: "Comprehensive evaluation of your profile and requirements",
             features: ["Complete profile assessment", "Requirements verification", "Success probability analysis"],
-            color: "text-blue-600",
+            color: "text-blue-600 dark:text-blue-400",
             accent: "blue"
         },
         {
@@ -120,7 +116,7 @@ const SuperVisa = () => {
             title: "Document Preparation",
             description: "Professional assistance with all required documentation",
             features: ["Invitation letter drafting", "Financial documentation", "Supporting documents review"],
-            color: "text-emerald-600",
+            color: "text-emerald-600 dark:text-emerald-400",
             accent: "emerald"
         },
         {
@@ -128,7 +124,7 @@ const SuperVisa = () => {
             title: "Insurance Guidance",
             description: "Help finding suitable medical insurance coverage",
             features: ["Insurance comparison", "Coverage verification", "Compliance assistance"],
-            color: "text-purple-600",
+            color: "text-purple-600 dark:text-purple-400",
             accent: "purple"
         },
         {
@@ -136,7 +132,7 @@ const SuperVisa = () => {
             title: "Application Submission",
             description: "Professional submission with attention to detail",
             features: ["Error-free submission", "Deadline management", "Quality assurance"],
-            color: "text-orange-600",
+            color: "text-orange-600 dark:text-orange-400",
             accent: "orange"
         },
         {
@@ -144,7 +140,7 @@ const SuperVisa = () => {
             title: "Application Tracking",
             description: "Regular updates and monitoring until approval",
             features: ["Real-time updates", "Status monitoring", "Response handling"],
-            color: "text-red-600",
+            color: "text-red-600 dark:text-red-400",
             accent: "red"
         },
         {
@@ -152,7 +148,7 @@ const SuperVisa = () => {
             title: "Family Support",
             description: "Guidance for both sponsors and applicants",
             features: ["Sponsor assistance", "Applicant guidance", "Family coordination"],
-            color: "text-indigo-600",
+            color: "text-indigo-600 dark:text-indigo-400",
             accent: "indigo"
         }
     ];
@@ -189,19 +185,17 @@ const SuperVisa = () => {
     ];
 
     return (
-        <div className="bg-gray-50 overflow-hidden">
+        <div className="bg-gray-50 dark:bg-gray-900 overflow-hidden relative">
+
             {/* Floating Elements */}
             <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-                <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-orange-200 to-orange-100 rounded-full opacity-30 animate-pulse"></div>
-                <div className="absolute top-1/3 right-20 w-32 h-32 bg-gradient-to-br from-blue-200 to-blue-100 rounded-full opacity-20 animate-bounce" style={{ animationDuration: '3s' }}></div>
-                <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-gradient-to-br from-purple-200 to-purple-100 rounded-full opacity-25 animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-20 left-10 w-20 h-20 bg-gradient-to-br from-orange-200 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30 rounded-full opacity-30 animate-pulse"></div>
+                <div className="absolute top-1/3 right-20 w-32 h-32 bg-gradient-to-br from-blue-200 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 rounded-full opacity-20 animate-bounce" style={{ animationDuration: '3s' }}></div>
+                <div className="absolute bottom-40 left-1/4 w-16 h-16 bg-gradient-to-br from-purple-200 to-purple-100 dark:from-purple-900/30 dark:to-purple-800/30 rounded-full opacity-25 animate-pulse" style={{ animationDelay: '1s' }}></div>
             </div>
 
             {/* Enhanced Hero Section */}
-            <div className="relative w-full 
-                h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[100vh] 
-                text-white overflow-hidden flex items-center justify-center text-center">
-
+            <div className="relative w-full h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[100vh] text-white overflow-hidden flex items-center justify-center text-center">
                 {/* Background Image */}
                 <img
                     src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image(1).png?updatedAt=1757142270123"
@@ -211,14 +205,14 @@ const SuperVisa = () => {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/70 dark:from-black/70 dark:via-black/60 dark:to-black/80"></div>
 
                 {/* Animated Particles */}
                 <div className="absolute inset-0">
                     {[...Array(15)].map((_, i) => (
                         <div
                             key={i}
-                            className="absolute w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/20 rounded-full animate-ping"
+                            className="absolute w-1.5 sm:w-2 h-1.5 sm:h-2 bg-white/20 dark:bg-white/10 rounded-full animate-ping"
                             style={{
                                 left: `${Math.random() * 100}%`,
                                 top: `${Math.random() * 100}%`,
@@ -231,46 +225,42 @@ const SuperVisa = () => {
 
                 {/* Centered Content */}
                 <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
-                    {/* Small Label */}
                     <FloatingCard>
-                        <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-orange-500/20 to-orange-400/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8 border border-white/20">
-                            <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-orange-300 animate-pulse" />
-                            <span className="text-xs sm:text-sm md:text-base text-orange-200 font-medium">
+                        <div className="inline-flex items-center space-x-1.5 sm:space-x-2 bg-gradient-to-r from-orange-500/20 to-orange-400/20 dark:from-orange-600/20 dark:to-orange-500/20 backdrop-blur-sm rounded-full px-4 sm:px-6 py-2 sm:py-3 mb-6 sm:mb-8 border border-white/20 dark:border-white/10">
+                            <Sparkles className="w-4 sm:w-5 h-4 sm:h-5 text-orange-300 dark:text-orange-200 animate-pulse" />
+                            <span className="text-xs sm:text-sm md:text-base text-orange-200 dark:text-orange-100 font-medium">
                                 Canada's #1 Super Visa Specialists
                             </span>
                         </div>
                     </FloatingCard>
 
-                    {/* Heading */}
                     <FloatingCard delay={200}>
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight">
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white dark:text-gray-100 mb-6 sm:mb-8 leading-tight">
                             Super Visa
-                            <span className="block bg-gradient-to-r from-orange-400 to-orange-300 bg-clip-text text-transparent">
+                            <span className="block bg-gradient-to-r from-orange-400 to-orange-300 dark:from-orange-500 dark:to-orange-400 bg-clip-text text-transparent">
                                 Services
                             </span>
                         </h1>
                     </FloatingCard>
 
-                    {/* Description */}
                     <FloatingCard delay={400}>
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed max-w-4xl mx-auto mb-8 sm:mb-12 font-light">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 dark:text-gray-300 leading-relaxed max-w-4xl mx-auto mb-8 sm:mb-12 font-light">
                             Helping parents and grandparents stay connected with family in Canada through
-                            <span className="text-orange-300 font-semibold"> smooth and reliable </span>
+                            <span className="text-orange-300 dark:text-orange-200 font-semibold"> smooth and reliable </span>
                             Super Visa processing.
                         </p>
                     </FloatingCard>
 
-                    {/* Buttons */}
                     <FloatingCard delay={600}>
                         <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
-                            <button className="group bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl shadow-lg sm:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3"
+                            <button className="group bg-gradient-to-r from-orange-600 to-orange-500 dark:from-orange-700 dark:to-orange-600 hover:from-orange-700 hover:to-orange-600 dark:hover:from-orange-800 dark:hover:to-orange-700 text-white px-6 sm:px-10 py-3 sm:py-5 rounded-2xl shadow-lg sm:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold text-sm sm:text-lg flex items-center space-x-2 sm:space-x-3"
                                 onClick={() => navigate('/contact')}
                             >
                                 <Plane className="w-5 sm:w-6 h-5 sm:h-6 group-hover:rotate-12 transition-transform duration-300" />
                                 <span>Start Application</span>
                                 <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                             </button>
-                            <button className="group border-2 border-white/30 text-white hover:bg-white/10 px-6 sm:px-10 py-3 sm:py-5 rounded-2xl transition-all duration-300 font-semibold text-sm sm:text-lg backdrop-blur-sm flex items-center space-x-2 sm:space-x-3"
+                            <button className="group border-2 border-white/30 dark:border-white/20 text-white dark:text-gray-200 hover:bg-white/10 dark:hover:bg-white/15 px-6 sm:px-10 py-3 sm:py-5 rounded-2xl transition-all duration-300 font-semibold text-sm sm:text-lg backdrop-blur-sm flex items-center space-x-2 sm:space-x-3"
                                 onClick={() => navigate('/contact')}
                             >
                                 <Phone className="w-5 sm:w-6 h-5 sm:h-6 group-hover:animate-pulse" />
@@ -281,35 +271,32 @@ const SuperVisa = () => {
                 </div>
             </div>
 
-
-
-
             {/* Enhanced About Section */}
             <div className="max-w-7xl mx-auto py-24 px-4 sm:px-6">
                 <div className="grid lg:grid-cols-2 gap-16 items-center">
                     <FloatingCard>
                         <div className="space-y-8">
                             <div className="space-y-6">
-                                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-4 py-2">
-                                    <Globe className="w-5 h-5 text-orange-600" />
-                                    <span className="text-orange-700 font-medium text-sm">What is a Super Visa?</span>
+                                <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/50 dark:to-orange-800/50 rounded-full px-4 py-2">
+                                    <Globe className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                    <span className="text-orange-700 dark:text-orange-300 font-medium text-sm">What is a Super Visa?</span>
                                 </div>
-                                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
+                                <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white leading-tight">
                                     Reunite with
-                                    <span className="block bg-gradient-to-r from-orange-600 to-orange-400 bg-clip-text text-transparent">
+                                    <span className="block bg-gradient-to-r from-orange-600 to-orange-400 dark:from-orange-700 dark:to-orange-500 bg-clip-text text-transparent">
                                         Your Family
                                     </span>
                                 </h2>
-                                <div className="w-24 h-1.5 bg-gradient-to-r from-orange-600 to-orange-400 rounded-full"></div>
+                                <div className="w-24 h-1.5 bg-gradient-to-r from-orange-600 to-orange-400 dark:from-orange-500 dark:to-orange-300 rounded-full"></div>
                             </div>
 
-                            <div className="space-y-6 text-gray-600 leading-relaxed">
+                            <div className="space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed">
                                 <p className="text-xl font-light">
-                                    At <span className="font-bold text-orange-600">Settle Nation</span>, we understand how important family connections are, especially when it comes to bringing parents and grandparents to visit you in Canada.
+                                    At <span className="font-bold text-orange-600 dark:text-orange-400">Settle Nation</span>, we understand how important family connections are, especially when it comes to bringing parents and grandparents to visit you in Canada.
                                 </p>
                                 <p className="text-lg">
                                     The Super Visa allows parents and grandparents of Canadian citizens and permanent residents to stay for up to
-                                    <span className="font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded-lg mx-1">two years</span>
+                                    <span className="font-bold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/50 px-2 py-1 rounded-lg mx-1">two years</span>
                                     at a time without renewal. Our expert team will help you navigate the application process with complete ease and confidence.
                                 </p>
                             </div>
@@ -320,9 +307,9 @@ const SuperVisa = () => {
                                     { icon: TrendingUp, text: "High Success Rate" },
                                     { icon: Heart, text: "Family Reunification" }
                                 ].map((item, index) => (
-                                    <div key={index} className="flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-xl border border-green-100">
-                                        <item.icon className="w-6 h-6 text-green-600" />
-                                        <span className="font-semibold text-green-800">{item.text}</span>
+                                    <div key={index} className="flex items-center space-x-3 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-900/50 dark:to-emerald-800/50 p-4 rounded-xl border border-green-100 dark:border-green-700">
+                                        <item.icon className="w-6 h-6 text-green-600 dark:text-green-400" />
+                                        <span className="font-semibold text-green-800 dark:text-green-300">{item.text}</span>
                                     </div>
                                 ))}
                             </div>
@@ -332,15 +319,15 @@ const SuperVisa = () => {
                     <FloatingCard delay={300}>
                         <div className="flex justify-center">
                             <div className="relative group">
-                                <div className="absolute -inset-4 bg-gradient-to-br from-orange-400 via-orange-300 to-orange-200 rounded-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse"></div>
-                                <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-orange-100 rounded-3xl transform rotate-3 opacity-30 group-hover:rotate-6 transition-transform duration-500"></div>
+                                <div className="absolute -inset-4 bg-gradient-to-br from-orange-400 via-orange-300 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 rounded-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse"></div>
+                                <div className="absolute inset-0 bg-gradient-to-br from-orange-200 to-orange-100 dark:from-orange-900/50 dark:to-orange-800/50 rounded-3xl transform rotate-3 opacity-30 group-hover:rotate-6 transition-transform duration-500"></div>
                                 <img
                                     src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/image.png?updatedAt=1757142269958"
                                     alt="Super Visa Info"
-                                    className="relative z-10 rounded-3xl shadow-2xl w-full max-w-lg object-cover transform group-hover:scale-105 transition-transform duration-500 border-4 border-white/50"
+                                    className="relative z-10 rounded-3xl shadow-2xl w-full max-w-lg object-cover transform group-hover:scale-105 transition-transform duration-500 border-4 border-white/50 dark:border-white/30"
                                 />
-                                <div className="absolute top-4 right-4 z-20 bg-white/90 backdrop-blur-sm rounded-full p-2">
-                                    <MapPin className="w-6 h-6 text-orange-600" />
+                                <div className="absolute top-4 right-4 z-20 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-full p-2">
+                                    <MapPin className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                                 </div>
                             </div>
                         </div>
@@ -349,8 +336,7 @@ const SuperVisa = () => {
             </div>
 
             {/* Enhanced Benefits Section */}
-            <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 py-24 px-4 sm:px-6 relative overflow-hidden">
-                {/* Background Pattern */}
+            <div className="bg-gradient-to-br from-gray-50 via-white to-gray-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-24 px-4 sm:px-6 relative overflow-hidden">
                 <div className="absolute inset-0 opacity-5">
                     <div className="absolute inset-0" style={{
                         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23f97316' fill-opacity='0.4'%3E%3Cpath d='m36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -360,17 +346,17 @@ const SuperVisa = () => {
                 <div className="max-w-7xl mx-auto relative z-10">
                     <FloatingCard>
                         <div className="text-center mb-20">
-                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-6 py-3 mb-6">
-                                <Star className="w-5 h-5 text-orange-600" />
-                                <span className="text-orange-700 font-medium">Key Advantages</span>
+                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/50 dark:to-orange-800/50 rounded-full px-6 py-3 mb-6">
+                                <Star className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                <span className="text-orange-700 dark:text-orange-300 font-medium">Key Advantages</span>
                             </div>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                                 Benefits of the
-                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 dark:from-orange-700 dark:to-orange-600 bg-clip-text text-transparent">
                                     Super Visa
                                 </span>
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
+                            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
                                 Why choose the Super Visa for your parents and grandparents? Discover the advantages that make family reunification easier and more convenient.
                             </p>
                         </div>
@@ -379,29 +365,28 @@ const SuperVisa = () => {
                     <div className="grid lg:grid-cols-3 gap-8">
                         {benefits.map((benefit, index) => (
                             <FloatingCard key={index} delay={index * 200}>
-                                <div className={`group relative ${benefit.bgColor} p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/50 overflow-hidden`}>
-                                    {/* Decorative Elements */}
-                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/20 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
-                                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/10 to-transparent rounded-full transform -translate-x-12 translate-y-12"></div>
+                                <div className={`group relative ${benefit.bgColor} p-8 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 border border-white/50 dark:border-gray-700/50 overflow-hidden`}>
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/20 to-transparent dark:from-white/10 dark:to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
+                                    <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-white/10 to-transparent dark:from-white/5 dark:to-transparent rounded-full transform -translate-x-12 translate-y-12"></div>
 
                                     <div className="relative z-10">
                                         <div className={`inline-flex p-4 bg-gradient-to-br ${benefit.color} rounded-2xl mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-lg`}>
                                             <benefit.icon className="w-8 h-8 text-white" />
                                         </div>
 
-                                        <h3 className="font-bold text-2xl text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+                                        <h3 className="font-bold text-2xl text-gray-900 dark:text-white mb-4 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
                                             {benefit.title}
                                         </h3>
 
-                                        <p className="text-gray-700 leading-relaxed mb-6 text-lg">
+                                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-6 text-lg">
                                             {benefit.description}
                                         </p>
 
                                         <div className="space-y-3">
                                             {benefit.features.map((feature, idx) => (
                                                 <div key={idx} className="flex items-center space-x-3 group/item">
-                                                    <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-400 rounded-full group-hover/item:scale-150 transition-transform duration-300"></div>
-                                                    <span className="text-gray-700 font-medium">{feature}</span>
+                                                    <div className="w-2 h-2 bg-gradient-to-r from-orange-500 to-orange-400 dark:from-orange-600 dark:to-orange-500 rounded-full group-hover/item:scale-150 transition-transform duration-300"></div>
+                                                    <span className="text-gray-700 dark:text-gray-300 font-medium">{feature}</span>
                                                 </div>
                                             ))}
                                         </div>
@@ -414,32 +399,27 @@ const SuperVisa = () => {
             </div>
 
             {/* Enhanced Services Section */}
-            <div className="py-24 px-4 sm:px-6 relative overflow-hidden bg-white">
-                {/* Subtle Background Shapes */}
+            <div className="py-24 px-4 sm:px-6 relative overflow-hidden bg-white dark:bg-gray-800">
                 <div className="absolute inset-0">
-                    <div className="absolute top-10 left-10 w-72 h-72 bg-orange-100 rounded-full blur-3xl animate-pulse"></div>
-                    <div
-                        className="absolute bottom-10 right-10 w-96 h-96 bg-blue-100 rounded-full blur-3xl animate-pulse"
-                        style={{ animationDelay: "1s" }}
-                    ></div>
+                    <div className="absolute top-10 left-10 w-72 h-72 bg-orange-100 dark:bg-orange-900/30 rounded-full blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-10 right-10 w-96 h-96 bg-blue-100 dark:bg-blue-900/30 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <FloatingCard>
                         <div className="text-center mb-20">
-                            <div className="inline-flex items-center space-x-2 bg-orange-50 rounded-full px-6 py-3 mb-6 border border-orange-100">
-                                <Sparkles className="w-5 h-5 text-orange-500" />
-                                <span className="text-orange-600 font-medium">Complete Solutions</span>
+                            <div className="inline-flex items-center space-x-2 bg-orange-50 dark:bg-orange-900/50 rounded-full px-6 py-3 mb-6 border border-orange-100 dark:border-orange-700">
+                                <Sparkles className="w-5 h-5 text-orange-500 dark:text-orange-400" />
+                                <span className="text-orange-600 dark:text-orange-300 font-medium">Complete Solutions</span>
                             </div>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                                 Our Super Visa
-                                <span className="block bg-gradient-to-r from-orange-500 to-orange-400 bg-clip-text text-transparent">
+                                <span className="block bg-gradient-to-r from-orange-500 to-orange-400 dark:from-orange-600 dark:to-orange-500 bg-clip-text text-transparent">
                                     Services
                                 </span>
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
-                                From eligibility assessment to approval – we guide you through every
-                                step with expert care and unwavering attention to detail.
+                            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
+                                From eligibility assessment to approval – we guide you through every step with expert care and unwavering attention to detail.
                             </p>
                         </div>
                     </FloatingCard>
@@ -447,33 +427,27 @@ const SuperVisa = () => {
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
                         {services.map((service, index) => (
                             <FloatingCard key={index} delay={index * 150}>
-                                <div className="group relative bg-white p-8 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 overflow-hidden">
-                                    {/* Glow Effect */}
-                                    <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                <div className="group relative bg-white dark:bg-gray-800 p-8 rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-gray-100 dark:border-gray-700 overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-orange-50 to-transparent dark:from-orange-900/30 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
                                     <div className="relative z-10">
-                                        <div className="inline-flex p-4 bg-orange-50 rounded-2xl mb-6 group-hover:bg-orange-100 transition-all duration-300 border border-orange-100">
-                                            <service.icon
-                                                className={`w-8 h-8 ${service.color} group-hover:text-orange-500 transition-colors duration-300`}
-                                            />
+                                        <div className="inline-flex p-4 bg-orange-50 dark:bg-orange-900/50 rounded-2xl mb-6 group-hover:bg-orange-100 dark:group-hover:bg-orange-800/50 transition-all duration-300 border border-orange-100 dark:border-orange-700">
+                                            <service.icon className={`w-8 h-8 ${service.color} group-hover:text-orange-500 dark:group-hover:text-orange-400 transition-colors duration-300`} />
                                         </div>
 
-                                        <h3 className="font-bold text-xl text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+                                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-4 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
                                             {service.title}
                                         </h3>
 
-                                        <p className="text-gray-600 leading-relaxed mb-6">
+                                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
                                             {service.description}
                                         </p>
 
                                         <div className="space-y-3">
                                             {service.features.map((feature, idx) => (
-                                                <div
-                                                    key={idx}
-                                                    className="flex items-center space-x-3 group/item"
-                                                >
-                                                    <Check className="w-4 h-4 text-green-500 group-hover/item:scale-110 transition-transform duration-300" />
-                                                    <span className="text-gray-500 text-sm group-hover/item:text-gray-700 transition-colors duration-300">
+                                                <div key={idx} className="flex items-center space-x-3 group/item">
+                                                    <Check className="w-4 h-4 text-green-500 dark:text-green-400 group-hover/item:scale-110 transition-transform duration-300" />
+                                                    <span className="text-gray-500 dark:text-gray-400 text-sm group-hover/item:text-gray-700 dark:group-hover/item:text-gray-300 transition-colors duration-300">
                                                         {feature}
                                                     </span>
                                                 </div>
@@ -487,55 +461,53 @@ const SuperVisa = () => {
                 </div>
             </div>
 
-
             {/* Enhanced Process Steps */}
-            <div className="bg-white py-24 px-4 sm:px-6 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-800 py-24 px-4 sm:px-6 relative overflow-hidden">
                 <div className="max-w-7xl mx-auto">
                     <FloatingCard>
                         <div className="text-center mb-20">
-                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-6 py-3 mb-6">
-                                <Calendar className="w-5 h-5 text-orange-600" />
-                                <span className="text-orange-700 font-medium">Step by Step</span>
+                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/50 dark:to-orange-800/50 rounded-full px-6 py-3 mb-6">
+                                <Calendar className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                <span className="text-orange-700 dark:text-orange-300 font-medium">Step by Step</span>
                             </div>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                                 Our Streamlined
-                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 dark:from-orange-700 dark:to-orange-600 bg-clip-text text-transparent">
                                     Process
                                 </span>
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
+                            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
                                 Simple, transparent, and efficient - our streamlined process ensures your Super Visa application is handled with the utmost professionalism.
                             </p>
                         </div>
                     </FloatingCard>
 
                     <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
-                        {/* Connection Lines */}
-                        <div className="hidden lg:block absolute top-20 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-200 to-transparent z-0"></div>
+                        <div className="hidden lg:block absolute top-20 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-200 to-transparent dark:via-blue-800 z-0"></div>
 
                         {processSteps.map((step, index) => (
                             <FloatingCard key={index} delay={index * 200}>
                                 <div className="relative text-center z-10">
                                     <div className="relative mb-8">
-                                        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-600 to-orange-500 text-white rounded-2xl text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
+                                        <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-orange-600 to-orange-500 dark:from-orange-700 dark:to-orange-600 text-white rounded-2xl text-2xl font-bold shadow-lg group-hover:scale-110 transition-transform duration-300">
                                             {step.step}
                                         </div>
-                                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-300 rounded-full flex items-center justify-center">
-                                            <step.icon className="w-3 h-3 text-white " />
+                                        <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-to-br from-orange-400 to-orange-300 dark:from-orange-500 dark:to-orange-400 rounded-full flex items-center justify-center">
+                                            <step.icon className="w-3 h-3 text-white" />
                                         </div>
                                     </div>
 
-                                    <h3 className="font-bold text-xl text-gray-900 mb-4">
+                                    <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-4">
                                         {step.title}
                                     </h3>
 
-                                    <p className="text-gray-600 leading-relaxed mb-4">
+                                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
                                         {step.description}
                                     </p>
 
-                                    <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 px-4 py-2 rounded-full">
-                                        <Calendar className="w-4 h-4 text-orange-600" />
-                                        <span className="text-sm font-semibold text-orange-700">{step.duration}</span>
+                                    <div className="inline-flex items-center justify-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/50 dark:to-orange-800/50 px-4 py-2 rounded-full">
+                                        <Calendar className="w-4 h-4 text-orange-600 dark:text-orange-400" />
+                                        <span className="text-sm font-semibold text-orange-700 dark:text-orange-300">{step.duration}</span>
                                     </div>
                                 </div>
                             </FloatingCard>
@@ -545,21 +517,21 @@ const SuperVisa = () => {
             </div>
 
             {/* Enhanced Why Choose Us */}
-            <div className="bg-gradient-to-br from-orange-50 via-white to-orange-50 py-24 px-4 sm:px-6">
+            <div className="bg-gradient-to-br from-orange-50 via-white to-orange-50 dark:from-orange-900/30 dark:via-gray-900 dark:to-orange-900/30 py-24 px-4 sm:px-6">
                 <div className="max-w-7xl mx-auto">
                     <FloatingCard>
                         <div className="text-center mb-20">
-                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 rounded-full px-6 py-3 mb-6">
-                                <Award className="w-5 h-5 text-orange-600" />
-                                <span className="text-orange-700 font-medium">Why Settle Nation</span>
+                            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-orange-100 to-orange-50 dark:from-orange-900/50 dark:to-orange-800/50 rounded-full px-6 py-3 mb-6">
+                                <Award className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                <span className="text-orange-700 dark:text-orange-300 font-medium">Why Settle Nation</span>
                             </div>
-                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+                            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6">
                                 Why Choose Us for
-                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 bg-clip-text text-transparent">
+                                <span className="block bg-gradient-to-r from-orange-600 to-orange-500 dark:from-orange-700 dark:to-orange-600 bg-clip-text text-transparent">
                                     Super Visa?
                                 </span>
                             </h2>
-                            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed font-light">
+                            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed font-light">
                                 Experience the difference with our dedicated Super Visa specialists who understand the importance of family reunification and deliver exceptional results.
                             </p>
                         </div>
@@ -572,37 +544,36 @@ const SuperVisa = () => {
                                 title: "Certified Experts",
                                 description: "Registered immigration consultants with proven expertise in Super Visa applications",
                                 stat: "15+ Years",
-                                color: "from-blue-500 to-blue-400",
-                                bg: "from-blue-50 to-blue-25"
+                                color: "from-blue-500 to-blue-400 dark:from-blue-700 dark:to-blue-600",
+                                bg: "from-blue-50 to-blue-25 dark:from-blue-900/30 dark:to-blue-800/30"
                             },
                             {
                                 icon: Heart,
                                 title: "Family Focus",
                                 description: "Specialized exclusively in family reunification cases with personal attention",
                                 stat: "1000+ Families",
-                                color: "from-red-500 to-pink-400",
-                                bg: "from-red-50 to-pink-25"
+                                color: "from-red-500 to-pink-400 dark:from-red-700 dark:to-pink-600",
+                                bg: "from-red-50 to-pink-25 dark:from-red-900/30 dark:to-pink-800/30"
                             },
                             {
                                 icon: Star,
                                 title: "High Success Rate",
                                 description: "Outstanding 95% success rate in Super Visa applications and approvals",
                                 stat: "95% Success",
-                                color: "from-yellow-500 to-orange-400",
-                                bg: "from-yellow-50 to-orange-25"
+                                color: "from-yellow-500 to-orange-400 dark:from-yellow-700 dark:to-orange-600",
+                                bg: "from-yellow-50 to-orange-25 dark:from-yellow-900/30 dark:to-orange-800/30"
                             },
                             {
                                 icon: Users,
                                 title: "Personal Care",
                                 description: "Dedicated support throughout the entire process with 24/7 assistance",
                                 stat: "24/7 Support",
-                                color: "from-green-500 to-emerald-400",
-                                bg: "from-green-50 to-emerald-25"
+                                color: "from-green-500 to-emerald-400 dark:from-green-700 dark:to-emerald-600",
+                                bg: "from-green-50 to-emerald-25 dark:from-green-900/30 dark:to-emerald-800/30"
                             }
                         ].map((feature, index) => (
                             <FloatingCard key={index} delay={index * 150}>
-                                <div className={`group text-center p-8 rounded-3xl hover:bg-gradient-to-br hover:${feature.bg} transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl border border-gray-100 hover:border-white relative overflow-hidden`}>
-                                    {/* Background Pattern */}
+                                <div className={`group text-center p-8 rounded-3xl hover:bg-gradient-to-br hover:${feature.bg} transition-all duration-500 transform hover:-translate-y-2 hover:shadow-xl border border-gray-100 dark:border-gray-700 relative overflow-hidden`}>
                                     <div className="absolute inset-0 opacity-5">
                                         <div className="w-full h-full" style={{
                                             backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23f97316' fill-opacity='0.3'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E")`,
@@ -616,10 +587,10 @@ const SuperVisa = () => {
                                         <div className={`text-3xl font-bold bg-gradient-to-r ${feature.color} bg-clip-text text-transparent mb-3 group-hover:scale-105 transition-transform duration-300`}>
                                             {feature.stat}
                                         </div>
-                                        <h3 className="font-bold text-xl text-gray-900 mb-4 group-hover:text-orange-600 transition-colors duration-300">
+                                        <h3 className="font-bold text-xl text-gray-900 dark:text-white mb-4 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300">
                                             {feature.title}
                                         </h3>
-                                        <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors duration-300">
                                             {feature.description}
                                         </p>
                                     </div>
@@ -631,41 +602,37 @@ const SuperVisa = () => {
             </div>
 
             {/* Enhanced Closing Section */}
-            <div className="relative py-32 px-4 sm:px-6 text-center overflow-hidden bg-gradient-to-br from-orange-50 via-orange-100 to-orange-50">
-                {/* Decorative Shapes */}
+            <div className="relative py-32 px-4 sm:px-6 text-center overflow-hidden bg-gradient-to-br from-orange-50 via-orange-100 to-orange-50 dark:from-orange-900/30 dark:via-orange-800/30 dark:to-orange-900/30">
                 <div className="absolute inset-0">
-                    <div className="absolute top-10 left-10 w-72 h-72 bg-orange-200/30 rounded-full blur-3xl animate-pulse"></div>
-                    <div
-                        className="absolute bottom-10 right-10 w-96 h-96 bg-orange-300/20 rounded-full blur-3xl animate-pulse"
-                        style={{ animationDelay: "1s" }}
-                    ></div>
+                    <div className="absolute top-10 left-10 w-72 h-72 bg-orange-200/30 dark:bg-orange-900/20 rounded-full blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-10 right-10 w-96 h-96 bg-orange-300/20 dark:bg-orange-800/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: "1s" }}></div>
                 </div>
 
                 <div className="relative z-10 max-w-5xl mx-auto">
                     <FloatingCard>
-                        <div className="inline-flex items-center justify-center space-x-3 bg-white shadow-lg rounded-full px-6 py-3 mb-8 border border-orange-200">
-                            <Home className="w-6 h-6 text-orange-600" />
-                            <span className="font-semibold text-orange-700">
+                        <div className="inline-flex items-center justify-center space-x-3 bg-white dark:bg-gray-800 shadow-lg rounded-full px-6 py-3 mb-8 border border-orange-200 dark:border-orange-700">
+                            <Home className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                            <span className="font-semibold text-orange-700 dark:text-orange-300">
                                 Family Reunification Specialists
                             </span>
-                            <Sparkles className="w-5 h-5 text-yellow-500 animate-pulse" />
+                            <Sparkles className="w-5 h-5 text-yellow-500 dark:text-yellow-400 animate-pulse" />
                         </div>
                     </FloatingCard>
 
                     <FloatingCard delay={200}>
-                        <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-8 leading-tight text-gray-900">
+                        <h2 className="text-4xl sm:text-5xl lg:text-7xl font-bold mb-8 leading-tight text-gray-900 dark:text-white">
                             Ready to Apply for a
-                            <span className="block bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 bg-clip-text text-transparent">
+                            <span className="block bg-gradient-to-r from-orange-600 via-orange-500 to-yellow-500 dark:from-orange-700 dark:via-orange-600 dark:to-yellow-600 bg-clip-text text-transparent">
                                 Super Visa?
                             </span>
                         </h2>
                     </FloatingCard>
 
                     <FloatingCard delay={400}>
-                        <p className="text-xl sm:text-2xl text-gray-700 mb-12 leading-relaxed font-light max-w-4xl mx-auto">
+                        <p className="text-xl sm:text-2xl text-gray-700 dark:text-gray-300 mb-12 leading-relaxed font-light max-w-4xl mx-auto">
                             Let us help you reunite with your loved ones in Canada. Contact us today
                             and take the first step towards
-                            <span className="text-orange-600 font-semibold">
+                            <span className="text-orange-600 dark:text-orange-400 font-semibold">
                                 {" "}
                                 bringing your family together.
                             </span>
@@ -674,51 +641,50 @@ const SuperVisa = () => {
 
                     <FloatingCard delay={600}>
                         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-                            <button className="group bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 hover:from-orange-700 hover:via-orange-600 hover:to-orange-500 text-white px-12 py-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-xl flex items-center space-x-3"
+                            <button className="group bg-gradient-to-r from-orange-600 via-orange-500 to-orange-400 dark:from-orange-700 dark:via-orange-600 dark:to-orange-500 hover:from-orange-700 hover:via-orange-600 hover:to-orange-500 dark:hover:from-orange-800 dark:hover:via-orange-700 dark:hover:to-orange-600 text-white px-12 py-6 rounded-2xl shadow-lg transition-all duration-300 transform hover:scale-105 font-semibold text-xl flex items-center space-x-3"
                                 onClick={() => navigate('/contact')}
                             >
                                 <Plane className="w-6 h-6 group-hover:rotate-12 transition-transform duration-300" />
                                 <span>Get Started Today</span>
                                 <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform duration-300" />
                             </button>
-                            <button className="group border-2 border-orange-400 text-orange-700 hover:bg-orange-50 px-12 py-6 rounded-2xl transition-all duration-300 font-semibold text-xl flex items-center space-x-3 hover:border-orange-500 hover:shadow-lg bg-white"
+                            <button className="group border-2 border-orange-400 dark:border-orange-300 text-orange-700 dark:text-orange-300 hover:bg-orange-50 dark:hover:bg-orange-900/50 px-12 py-6 rounded-2xl transition-all duration-300 font-semibold text-xl flex items-center space-x-3 hover:border-orange-500 dark:hover:border-orange-400 hover:shadow-lg bg-white dark:bg-gray-800"
                                 onClick={() => navigate('/contact')}
                             >
-                                <Phone className="w-6 h-6 group-hover:animate-bounce text-orange-600" />
+                                <Phone className="w-6 h-6 group-hover:animate-bounce text-orange-600 dark:text-orange-400" />
                                 <span>Free Consultation</span>
                             </button>
                         </div>
                     </FloatingCard>
 
                     <FloatingCard delay={800}>
-                        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-orange-700">
+                        <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-orange-700 dark:text-orange-300">
                             <div className="flex items-center space-x-2">
-                                <CheckCircle className="w-5 h-5 text-green-500" />
+                                <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400" />
                                 <span className="font-medium">Free assessment</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <CheckCircle className="w-5 h-5 text-green-500" />
+                                <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400" />
                                 <span className="font-medium">Expert guidance</span>
                             </div>
                             <div className="flex items-center space-x-2">
-                                <CheckCircle className="w-5 h-5 text-green-500" />
+                                <CheckCircle className="w-5 h-5 text-green-500 dark:text-green-400" />
                                 <span className="font-medium">Family reunification</span>
                             </div>
                         </div>
                     </FloatingCard>
 
-                    {/* Contact Information */}
                     <FloatingCard delay={1000}>
-                        <div className="mt-16 pt-8 border-t border-orange-200">
+                        <div className="mt-16 pt-8 border-t border-orange-200 dark:border-orange-700">
                             <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
-                                <div className="flex items-center justify-center space-x-3 bg-white shadow-md rounded-xl px-6 py-4 border border-orange-100">
-                                    <Phone className="w-5 h-5 text-orange-600" />
-                                    <span className="text-gray-800 font-medium">+91 7347045972</span>
+                                <div className="flex items-center justify-center space-x-3 bg-white dark:bg-gray-800 shadow-md rounded-xl px-6 py-4 border border-orange-100 dark:border-orange-700">
+                                    <Phone className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                    <span className="text-gray-800 dark:text-gray-200 font-medium">+91 7347045972</span>
                                 </div>
-                                <div className="flex items-center justify-center space-x-3 bg-white shadow-md rounded-xl px-6 py-4 border border-orange-100">
-                                    <Mail className="w-5 h-5 text-orange-600" />
-                                    <span className="text-gray-800 font-medium">
-                                       settlenation.in@gmail.com
+                                <div className="flex items-center justify-center space-x-3 bg-white dark:bg-gray-800 shadow-md rounded-xl px-6 py-4 border border-orange-100 dark:border-orange-700">
+                                    <Mail className="w-5 h-5 text-orange-600 dark:text-orange-400" />
+                                    <span className="text-gray-800 dark:text-gray-200 font-medium">
+                                        settlenation.in@gmail.com
                                     </span>
                                 </div>
                             </div>
@@ -726,7 +692,6 @@ const SuperVisa = () => {
                     </FloatingCard>
                 </div>
             </div>
-
         </div>
     );
 };
