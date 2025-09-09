@@ -10,6 +10,8 @@ import {
   PlaneTakeoff,
   Check,
 } from "lucide-react";
+import { Link } from "react-router-dom";
+
 
 const Footer = ({ mapImageSrc }) => {
   const [email, setEmail] = useState("");
@@ -19,6 +21,15 @@ const Footer = ({ mapImageSrc }) => {
     console.log("Subscribed:", email);
     setEmail("");
   };
+
+  const serviceItems = [
+    { to: "/services/super-visa", label: "Super Visa" },
+    { to: "/services/study-visa", label: "Study Visa" },
+    { to: "/services/visa-counselling", label: "Visa Counselling" },
+    { to: "/services/tourist-visa", label: "Tourist Visa" },
+    { to: "/services/ielts-pte", label: "IELTS/PTE" },
+    { to: "/services/interview-prep", label: "Interview Preparation" },
+  ];
 
   return (
     <footer className="relative bg-[#6A6593] text-white overflow-hidden">
@@ -104,7 +115,8 @@ const Footer = ({ mapImageSrc }) => {
                 <Twitter className="w-5 h-5" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/settle_nation/"
+                 target="_blank"
                 className="w-10 h-10 bg-white/10 rounded-full flex items-center justify-center hover:bg-orange-500 hover:scale-105 transition-all duration-300"
                 aria-label="Instagram"
               >
@@ -124,53 +136,43 @@ const Footer = ({ mapImageSrc }) => {
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-white">Services</h3>
             <ul className="space-y-3">
-              {[
-                "Tour Packages",
-                "Visa Processing",
-                "Hotel Booking",
-                "Flight Tickets",
-                "Travel Insurance",
-                "Car Rental",
-                "Group Tours",
-              ].map((service) => (
-                <li key={service}>
-                  <a
-                    href="#"
+              {serviceItems.map(({ to, label }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
                     className="group flex items-center text-gray-300 hover:text-white transition-all duration-200 text-sm"
                   >
                     <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 opacity-90 group-hover:translate-x-0.5 transition-transform" />
                     <span className="group-hover:translate-x-0.5 transition-transform">
-                      {service}
+                      {label}
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
-
           {/* Useful Links Section */}
           <div className="space-y-6">
             <h3 className="text-lg font-semibold text-white">Useful Links</h3>
             <ul className="space-y-3">
               {[
-                "About Us",
-                "Contact",
-                "Privacy Policy",
-                "Terms of Service",
-                "FAQ",
-                "Support",
-                "Blog",
-              ].map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
+                { label: "About Us", to: "/about" },
+                { label: "Contact", to: "/contact" },
+                { label: "Privacy Policy", to: "/privacy-policy" },
+                { label: "Terms of Service", to: "/terms" },
+                { label: "Support", to: "/contact" },
+                { label: "Blog", to: "/articlesBlogs" },
+              ].map(({ label, to }) => (
+                <li key={label}>
+                  <Link
+                    to={to}
                     className="group flex items-center text-gray-300 hover:text-white transition-all duration-200 text-sm"
                   >
                     <Check className="w-4 h-4 mr-2 shrink-0 text-orange-500 opacity-90 group-hover:translate-x-0.5 transition-transform" />
                     <span className="group-hover:translate-x-0.5 transition-transform">
-                      {link}
+                      {label}
                     </span>
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -213,14 +215,14 @@ const Footer = ({ mapImageSrc }) => {
           <p className="text-xs tracking-wide text-gray-300">
             Developed by{" "}
             <span className="font-semibold text-orange-400">
-                <a href="https://www.dodunsoftsolutions.com/">  Dodun Soft Solutions</a>
-            
+              <a href="https://www.dodunsoftsolutions.com/">  Dodun Soft Solutions</a>
+
             </span>
           </p>
         </div>
 
         {/* Bottom divider + Dev credit */}
-       
+
       </div>
     </footer>
   );

@@ -13,7 +13,7 @@ const slides = [
     {
         heading: "Study Visa",
         sub: "Unlock global education opportunities with end-to-end guidance—course selection, SOP, IELTS coaching, and visa filing.",
-        cta: { label: "Explore Study Visas", href: "/study-visa" },
+        cta: { label: "Explore Study Visas", href: "/services/study-visa" },
         bg: "https://ik.imagekit.io/devhm/2150282803.jpg?updatedAt=1756234808484",
         image: "https://ik.imagekit.io/devhm/2150282803.jpg?updatedAt=1756234808484",
         bullets: ["Canada • USA • UK • Australia", "Fast offer letters", "Scholarship guidance"],
@@ -29,7 +29,7 @@ const slides = [
     {
         heading: "Tourist / Visitor Visa",
         sub: "Hassle-free holidays: accurate documentation, strong travel plans, and flawless applications.",
-        cta: { label: "Plan Your Trip", href: "/tourist-visa" },
+        cta: { label: "Plan Your Trip", href: "/services/tourist-visa" },
         bg: "https://ik.imagekit.io/devhm/547.jpg?updatedAt=1756234808841",
         image: "https://ik.imagekit.io/devhm/547.jpg?updatedAt=1756234808841",
         bullets: ["Multiple-entry options", "Itinerary & insurance help", "Fast processing"],

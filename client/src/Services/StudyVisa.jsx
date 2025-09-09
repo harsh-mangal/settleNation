@@ -652,12 +652,12 @@ const StudyVisa = () => {
                             <div className="grid sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
                                 <div className="flex items-center justify-center space-x-3 bg-white shadow-md rounded-xl px-6 py-4 border border-orange-100">
                                     <Phone className="w-5 h-5 text-orange-600" />
-                                    <span className="text-gray-800 font-medium">+1 (555) 123-4567</span>
+                                    <span className="text-gray-800 font-medium"> +91 7347045972</span>
                                 </div>
                                 <div className="flex items-center justify-center space-x-3 bg-white shadow-md rounded-xl px-6 py-4 border border-orange-100">
                                     <Mail className="w-5 h-5 text-orange-600" />
                                     <span className="text-gray-800 font-medium">
-                                        info@settlenation.ca
+                                        settlenation.in@gmail.com
                                     </span>
                                 </div>
                             </div>

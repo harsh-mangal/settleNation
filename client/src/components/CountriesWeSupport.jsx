@@ -12,7 +12,7 @@ const countries = [
   },
   {
     name: "Australia",
-    img: "https://images.unsplash.com/photo-1464646694296-1ab83d72b39d?q=80&w=1400&auto=format&fit=crop",
+    img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/aus.webp?updatedAt=1757397650074",
     about:
       "World-class universities, skilled migration routes, and a great work-life balance.",
     href: "/country/australia",
@@ -26,14 +26,14 @@ const countries = [
   },
   {
     name: "United States",
-    img: "https://images.unsplash.com/photo-1469474968028-5d8b87c1f59b?q=80&w=1400&auto=format&fit=crop",
+    img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/view-statue-liberty-new-york-city.jpg?updatedAt=1757334591595",
     about:
       "Leading research hubs, OPT/STEM extensions, and unmatched innovation ecosystem.",
     href: "/country/usa",
   },
   {
     name: "New Zealand",
-    img: "https://images.unsplash.com/photo-1502784444185-1bd7a9f38d54?q=80&w=1400&auto=format&fit=crop",
+    img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/big-ben-clock.jpg?updatedAt=1757398999983",
     about:
       "Safe, scenic, and student-friendly with pathways for skilled migrants.",
     href: "/country/new-zealand",
