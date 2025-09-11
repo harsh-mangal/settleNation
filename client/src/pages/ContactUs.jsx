@@ -225,7 +225,7 @@ const Carousel = () => {
                                     variants={itemVariants}
                                     className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 dark:text-gray-200 leading-relaxed max-w-4xl mx-auto drop-shadow-lg"
                                 >
-                                    <StaggeredText text="Reach out to our expert team for personalized assistance with your visa, job, or admission interviews." />
+                                    <StaggeredText text="Reach out to our expert team for personalized assistance with your visa or admission interviews." />
                                 </motion.p>
                             </motion.div>
                         </div>
@@ -302,7 +302,7 @@ w-5 h-5 sm:w-6 sm:h-6 text-orange-600 dark:text-orange-400" />
                         </h2>
                         <motion.div className="space-y-4 sm:space-y-6 text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
                             <motion.p variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-                                We’re here to help you succeed in your visa, job, or admission interviews. Reach out to our <span className="font-bold text-orange-600 dark:text-orange-400">expert team</span> for personalized support.
+                                We’re here to help you succeed in your visa or admission interviews. Reach out to our <span className="font-bold text-orange-600 dark:text-orange-400">expert team</span> for personalized support.
                             </motion.p>
                             <motion.div variants={itemVariants} initial="hidden" whileInView="visible" viewport={{ once: true }} transition={{ delay: 0.2 }} className="space-y-3 sm:space-y-4">
                                 <div className="flex items-center space-x-3">
@@ -450,7 +450,7 @@ w-5 h-5 sm:w-6 sm:h-6 text-orange-600 dark:text-orange-400" />
                         className="flex justify-center mt-6 sm:mt-8"
                     >
                         <a
-                            href="https://www.google.com/maps/dir/?api=1&destination=SCO+363%2C+Sector+44-D%2C+Chandigarh%2C+160047%2C+India"
+                            href="https://www.google.com/maps/dir/?api=1&destination=SCO+363,+Top+Floor,+Sector+44-D,+Chandigarh,+India"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group bg-gradient-to-r from-orange-500 via-orange-600 to-red-500 dark:from-orange-600 dark:via-orange-700 dark:to-red-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl shadow-2xl font-bold text-base sm:text-lg flex items-center justify-center space-x-3 relative overflow-hidden"
@@ -460,6 +460,8 @@ w-5 h-5 sm:w-6 sm:h-6 text-orange-600 dark:text-orange-400" />
                             }}
                             whileTap={{ scale: 0.95 }}
                         >
+
+
                             <span className="relative z-10">Get Directions</span>
                             <motion.div
                                 animate={{ x: [0, 5, 0] }}

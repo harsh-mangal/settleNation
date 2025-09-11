@@ -43,9 +43,10 @@ const countries = [
     name: "United States",
     img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/view-statue-liberty-new-york-city.jpg?updatedAt=1757334591595",
     about:
-      "Leading research hubs, OPT/STEM extensions, and unmatched innovation ecosystem.",
+      "Explore visa options, including F-1 student, H-1B work, and OPT/STEM extensions, with guidance on applications and requirements.",
     href: "/country/usa",
   },
+
   {
     name: "New Zealand",
     img: "https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/big-ben-clock.jpg?updatedAt=1757398999983",

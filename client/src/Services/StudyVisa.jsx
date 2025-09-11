@@ -100,12 +100,13 @@ const StudyVisa = () => {
         },
         {
             icon: ClipboardCheck,
-            title: "PR Consulting",
-            description: "Guidance on permanent residency options after your studies.",
-            features: ["PR pathway planning", "Post-study options", "Long-term strategy"],
+            title: "Study Visa Guidance",
+            description: "Expert guidance on applying and securing your study visa.",
+            features: ["Visa application strategy", "Eligibility assessment", "Document compliance"],
             color: "from-orange-500 to-orange-600 dark:from-orange-700 dark:to-orange-600",
             bgColor: "from-orange-50 to-orange-100 dark:from-orange-900/30 dark:to-orange-800/30"
         },
+
         {
             icon: Globe,
             title: "Personalized Service",

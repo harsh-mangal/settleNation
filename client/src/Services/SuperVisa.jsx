@@ -79,8 +79,8 @@ const SuperVisa = () => {
         {
             icon: Clock,
             title: "Extended Stay Duration",
-            description: "Stay in Canada for up to 2 years without renewal",
-            features: ["Up to 2 years per visit", "No frequent renewals needed", "More quality time with family"],
+            description: "Stay in Canada for up to 5 years without renewal",
+            features: ["Up to 5 years per visit", "No frequent renewals needed", "More quality time with family"],
             color: "from-blue-500 to-cyan-400 dark:from-blue-700 dark:to-cyan-600",
             bgColor: "bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/30 dark:to-cyan-800/30"
         },
@@ -296,7 +296,7 @@ const SuperVisa = () => {
                                 </p>
                                 <p className="text-lg">
                                     The Super Visa allows parents and grandparents of Canadian citizens and permanent residents to stay for up to
-                                    <span className="font-bold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/50 px-2 py-1 rounded-lg mx-1">two years</span>
+                                    <span className="font-bold text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/50 px-2 py-1 rounded-lg mx-1">five years</span>
                                     at a time without renewal. Our expert team will help you navigate the application process with complete ease and confidence.
                                 </p>
                             </div>

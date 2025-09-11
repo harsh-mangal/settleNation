@@ -27,6 +27,7 @@ import CountryAustralia from "./Country/Australia";
 import CountryUK from "./Country/UK";
 import CountryUSA from "./Country/Usa";
 import CountryNZ from "./Country/Nz";
+import PRVisa from "./Services/PRVisa";
 
 
 const Layout = () => {
@@ -51,6 +52,7 @@ const Layout = () => {
             <Route path="/terms" element={<TermsOfService />} />
 
 
+             <Route path="/services/pr" element={<PRVisa />} />
             <Route path="/services/super-visa" element={<SuperVisa />} />
             <Route path="/services/study-visa" element={<StudyVisa />} />
             <Route path="/services/visa-counselling" element={<VisaCounselingPage />} />

@@ -13,10 +13,11 @@ const navItems = [
 ];
 
 const serviceItems = [
-  { to: "/services/super-visa", label: "Super Visa" },
+  { to: "/services/pr", label: "PR" },
   { to: "/services/study-visa", label: "Study Visa" },
-  { to: "/services/visa-counselling", label: "Visa Counselling" },
   { to: "/services/tourist-visa", label: "Tourist Visa" },
+  { to: "/services/super-visa", label: "Super Visa" },
+  { to: "/services/visa-counselling", label: "Visa Counselling" },
   { to: "/services/ielts-pte", label: "IELTS/PTE" },
   { to: "/services/interview-prep", label: "Interview Preparation" },
 ];

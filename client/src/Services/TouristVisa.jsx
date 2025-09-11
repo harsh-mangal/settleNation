@@ -444,7 +444,7 @@ const TouristVisa = () => {
                             whileInView="visible"
                             viewport={{ once: true }}
                         >
-                            {["Europe", "USA", "Canada", "Australia", "Asia", "Middle East"].map((destination, idx) => (
+                            {["UK","New Zealand","Europe", "USA", "Canada", "Australia", "Asia", "Middle East"].map((destination, idx) => (
                                 <motion.span
                                     key={idx}
                                     variants={itemVariants}
