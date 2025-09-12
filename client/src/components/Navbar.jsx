@@ -23,8 +23,8 @@ const serviceItems = [
 ];
 
 const loginItems = [
-  { to: "http://localhost:3002/login-client", label: "Client Login" },
-  { to: "http://localhost:3002/login-staff", label: "Staff Login" },
+  { to: "https://clientsettle.dodunsoftsolutions.com/login", label: "Client Login" },
+  { to: "https://staffsettle.dodunsoftsolutions.com/login", label: "Staff Login" },
 ];
 
 const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
