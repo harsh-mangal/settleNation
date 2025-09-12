@@ -67,6 +67,22 @@ const Footer = ({ mapImageSrc, darkMode }) => {
         </div>
       )}
 
+      {/* Travel Footer Image Background with Overlay */}
+      <div className="absolute inset-0">
+        {/* Background Image */}
+        <img
+          src="https://ik.imagekit.io/sqpcbo0c0/Settle%20Nation%20/futuristic-view-high-tech-earth-planet.jpg?updatedAt=1757666581314"
+          alt="Travel Footer Background"
+          className="w-full h-full object-cover object-center opacity-30 dark:opacity-40"
+          loading="lazy"
+          decoding="async"
+        />
+
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/40 dark:bg-black/40"></div>
+      </div>
+
+
       {/* Main Content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-8 pt-16">
         {/* Top Section with center divider */}
