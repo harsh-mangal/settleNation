@@ -22,14 +22,8 @@ const serviceItems = [
 ];
 
 const loginItems = [
-  {
-    to: "https://clientsettle.dodunsoftsolutions.com/login",
-    label: "Client Login",
-  },
-  {
-    to: "https://staffsettle.dodunsoftsolutions.com/login",
-    label: "Staff Login",
-  },
+  { to: "https://clientsettle.dodunsoftsolutions.com/login", label: "Client Login" },
+  { to: "https://staffsettle.dodunsoftsolutions.com/login", label: "Staff Login" },
 ];
 
 const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
@@ -40,6 +34,7 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
   const [darkMode, setDarkMode] = useState(
     localStorage.getItem("theme") === "dark"
   );
+  const [closeTimeout, setCloseTimeout] = useState(null);
 
   const dropdownRef = useRef(null);
   const loginRef = useRef(null);
@@ -71,8 +66,7 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
 
   const linkBase =
     "px-3 py-2 rounded-lg transition-all duration-200 hover:text-orange-600 dark:hover:text-orange-400 hover:bg-orange-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-orange-600 dark:focus:ring-orange-400 focus:ring-offset-1 dark:focus:ring-offset-gray-900";
-  const linkActive =
-    "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-gray-700 font-medium";
+  const linkActive = "text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-gray-700 font-medium";
   const linkInactive = "text-gray-700 dark:text-gray-200";
 
   const closeMenu = () => {
@@ -119,10 +113,20 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
             dropdown ? (
               <div key={to} className="relative group" ref={dropdownRef}>
                 <button
-                  className={`${linkBase} ${
-                    desktopDropdownOpen ? linkActive : linkInactive
-                  }`}
-                  onMouseEnter={() => setDesktopDropdownOpen(true)}
+                  className={`${linkBase} ${desktopDropdownOpen ? linkActive : linkInactive}`}
+                  onMouseEnter={() => {
+                    if (closeTimeout) {
+                      clearTimeout(closeTimeout);
+                      setCloseTimeout(null);
+                    }
+                    setDesktopDropdownOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => {
+                      setDesktopDropdownOpen(false);
+                    }, 150);
+                    setCloseTimeout(timeout);
+                  }}
                   aria-expanded={desktopDropdownOpen}
                   aria-haspopup="true"
                 >
@@ -132,12 +136,21 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
                 {/* Desktop Dropdown */}
                 <div
                   className={`absolute top-full left-0 mt-2 w-56 bg-white dark:bg-gray-800 shadow-lg rounded-lg border border-gray-100 dark:border-gray-700 py-2 z-50 transition-opacity duration-200 ${
-                    desktopDropdownOpen
-                      ? "opacity-100 visible"
-                      : "opacity-0 invisible"
+                    desktopDropdownOpen ? "opacity-100 visible" : "opacity-0 invisible"
                   }`}
-                  onMouseEnter={() => setDesktopDropdownOpen(true)}
-                  onMouseLeave={() => setDesktopDropdownOpen(false)}
+                  onMouseEnter={() => {
+                    if (closeTimeout) {
+                      clearTimeout(closeTimeout);
+                      setCloseTimeout(null);
+                    }
+                    setDesktopDropdownOpen(true);
+                  }}
+                  onMouseLeave={() => {
+                    const timeout = setTimeout(() => {
+                      setDesktopDropdownOpen(false);
+                    }, 150);
+                    setCloseTimeout(timeout);
+                  }}
                 >
                   {serviceItems.map(({ to, label }) => (
                     <NavLink
@@ -209,20 +222,18 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
           </div>
           <button
             onClick={() => setDarkMode((prev) => !prev)}
-            className="shadow-lg border-orange-500 dark:border-orange-400 text-orange-500 dark:text-orange-400 px-2 py-2 rounded-full hover:bg-orange-500 dark:hover:bg-white hover:text-white hover:shadow-md transform hover:-translate-y-0.5 transition-all duration-200 font-medium"
-            aria-label={
-              darkMode ? "Switch to light mode" : "Switch to dark mode"
-            }
+            className="px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-600 
+             text-gray-800 dark:text-gray-200 hover:shadow-md 
+             flex items-center gap-2 transition-all duration-200"
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {darkMode ? (
               <>
-                <Sun size={20} />{" "}
-              
+                <Sun size={20} /> <span className="hidden sm:inline">Light</span>
               </>
             ) : (
               <>
-                <Moon size={20} />{" "}
-              
+                <Moon size={20} /> <span className="hidden sm:inline">Dark</span>
               </>
             )}
           </button>
@@ -237,9 +248,8 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
         >
           {/* Hamburger Icon */}
           <svg
-            className={`w-6 h-6 transition-all duration-200 text-gray-700 dark:text-gray-200 ${
-              open ? "scale-0 opacity-0" : "scale-100 opacity-100"
-            }`}
+            className={`w-6 h-6 transition-all duration-200 text-gray-7
+            00 dark:text-gray-200 ${open ? "scale-0 opacity-0" : "scale-100 opacity-100"}`}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -284,9 +294,7 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
             className="w-full px-4 py-2 rounded-lg bg-gray-200 dark:bg-gray-700 
              text-gray-800 dark:text-gray-200 hover:shadow 
              flex items-center justify-center gap-2 transition-all duration-200"
-            aria-label={
-              darkMode ? "Switch to light mode" : "Switch to dark mode"
-            }
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {darkMode ? (
               <>
@@ -329,9 +337,7 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
                 {/* Mobile Dropdown */}
                 <div
                   className={`ml-4 mt-1 space-y-1 overflow-hidden transition-all duration-300 ${
-                    mobileDropdownOpen
-                      ? "max-h-96 opacity-100"
-                      : "max-h-0 opacity-0"
+                    mobileDropdownOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
                   {serviceItems.map(({ to, label }) => (
@@ -396,9 +402,7 @@ const Navbar = ({ logoAlt = "Settle Nation Logo" }) => {
 
               <div
                 className={`ml-2 mt-1 space-y-1 overflow-hidden transition-all duration-300 ${
-                  loginDropdownOpen
-                    ? "max-h-40 opacity-100"
-                    : "max-h-0 opacity-0"
+                  loginDropdownOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
                 {loginItems.map(({ to, label }) => (
