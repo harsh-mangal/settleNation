@@ -259,7 +259,7 @@ const ContactUs = () => {
         setSuccess(null);
 
         try {
-            const res = await axios.post("http://localhost:3025/api/contact", formData);
+            const res = await axios.post("https://apisettle.dodunsoftsolutions.com//api/contact", formData);
             if (res.data.success) {
                 setSuccess("✅ Thank you! Your message has been sent.");
                 setFormData({ name: "", email: "", message: "" });
